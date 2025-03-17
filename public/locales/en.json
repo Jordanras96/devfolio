@@ -1,0 +1,329 @@
+{
+  "Portfolio": {
+    "tabs": {
+      "player": "Player",
+      "skills": "Skills",
+      "quests": "Quests",
+      "battles": "Battles",
+      "trophies": "Trophies"
+    }
+  },
+  "Me": {
+    "name": "Jordan Rasoloarison",
+    "title": "Full Stack Developer",
+    "summary": {
+      "first": "As a passionate front-end developer, I craft modern, high-performance applications.",
+      "second": "My approach emphasizes precision, optimization, and scalability to ensure reliable and long-lasting solutions.",
+      "third": "Attentive and collaborative, I am committed to finding tailored solutions that meet the unique needs of each project."
+    },
+    "CTA": "Looking for a reliable and dedicated developer?",
+    "button": "Let's talk!"
+  },
+  "Skills": {
+    "title": "Skills",
+    "technologies": {
+      "frontend": {
+        "title": "Frontend",
+        "skills": {
+          "react": {
+            "name": "React",
+            "level": "95"
+          },
+          "nextjs": {
+            "name": "Next.js",
+            "level": "80"
+          },
+          "typescript": {
+            "name": "TypeScript",
+            "level": "85"
+          },
+          "tailwindcss": {
+            "name": "Tailwind CSS",
+            "level": "90"
+          },
+          "redux": {
+            "name": "Redux",
+            "level": "95"
+          },
+          "zustand": {
+            "name": "Zustand",
+            "level": "90"
+          },
+          "auth": {
+            "name": "Next-Auth",
+            "level": "85"
+          },
+          "graphql": {
+            "name": "GraphQL",
+            "level": "80"
+          },
+          "jest": {
+            "name": "Jest",
+            "level": "85"
+          }
+        }
+      },
+      "backend": {
+        "title": "Backend",
+        "skills": {
+          "node": {
+            "name": "Node.js",
+            "level": "90"
+          },
+          "express": {
+            "name": "Express",
+            "level": "85"
+          },
+          "python": {
+            "name": "Python",
+            "level": "50"
+          },
+          "prisma": {
+            "name": "Prisma",
+            "level": "85"
+          }
+        }
+      },
+      "database": {
+        "title": "Database",
+        "skills": {
+          "postgresql": {
+            "name": "PostgreSQL",
+            "level": "85"
+          },
+          "mongodb": {
+            "name": "MongoDB",
+            "level": "80"
+          },
+          "sql": {
+            "name": "SQL",
+            "level": "85"
+          },
+          "redis": {
+            "name": "Redis",
+            "level": "70"
+          }
+        }
+      },
+      "devops": {
+        "title": "DevOps",
+        "skills": {
+          "docker": {
+            "name": "Docker",
+            "level": "65"
+          },
+          "aws": {
+            "name": "AWS",
+            "level": "50"
+          },
+          "cicd": {
+            "name": "CI/CD",
+            "level": "70"
+          },
+          "linux": {
+            "name": "Linux",
+            "level": "80"
+          },
+          "nginx": {
+            "name": "Nginx",
+            "level": "75"
+          }
+        }
+      }
+    }
+  },
+  "Testimonials": {
+    "title": "Testimonials",
+    "person": {
+      "harison": {
+        "name": "Dr Sahalanirina Harison Rasamimanana",
+        "role": "Chief Physician (Specialist in Surgery)",
+        "text": "An exceptional developer with a remarkable ability to adapt and innovate. His technical expertise and creativity were major assets for our team, consistently delivering high-quality solutions that exceeded expectations."
+      },
+      "tojo": {
+        "name": "Tojo Eugene",
+        "role": "CTO of Webzay",
+        "text": "An exceptional developer with a remarkable ability to adapt and innovate. His technical expertise and creativity were major assets for our team, consistently delivering high-quality solutions that exceeded expectations."
+      },
+      "juanito": {
+        "name": "Juanito Fock",
+        "role": "Medical Delegate",
+        "text": "As a medical delegate, managing appointments had become a real headache. Jordan created a custom appointment management system that significantly simplified my work. The system is user-friendly, reliable, and perfectly tailored to my needs. I am truly grateful for his professionalism and the quality of his work."
+      },
+      "mamy": {
+        "name": "Rado Razafindraibe",
+        "role": "Auto entrepreneur",
+        "text": "I needed a dashboard to manage my orders for laying hens, and Jordan exceeded all my expectations. The dashboard is intuitive, efficient, and has saved me valuable time. Jordan perfectly understood the needs of my business and provided a solution that significantly increased my productivity. I am thrilled with the results!"
+      }
+    },
+    "previous": "Previous testimonial",
+    "next": "Next testimonial"
+  },
+  "Education": {
+    "title": "Quests",
+    "certificates": {
+      "mechatronics": {
+        "school": "Antananarivo Research Center",
+        "degree": "Advanced Research Master in Mechatronics",
+        "description": "This advanced master program in Mechatronics focuses on the integration of mechanical engineering, electronics, computer science, and control engineering to design and develop intelligent systems. The curriculum covers topics such as robotics, embedded systems, control theory, signal processing, automation, and artificial intelligence for real-time decision-making. Students gain expertise in designing and prototyping robotic systems, industrial automation solutions, and smart devices through hands-on projects and research initiatives."
+      },
+      "automation": {
+        "school": "IES-AV",
+        "degree": "Master of Engineering in Electronics and Automation",
+        "description": "This Master of Engineering program specializes in electronic automation and industrial computing, covering advanced concepts in circuit design, microcontroller programming, PLC automation, SCADA systems, and real-time embedded software development. Students gain in-depth knowledge of designing automated industrial systems, implementing Internet of Things (IoT) solutions, and optimizing manufacturing processes through sensor networks and AI-driven predictive maintenance. The program also emphasizes cybersecurity in industrial networks and energy-efficient automation strategies."
+      },
+      "react": {
+        "school": "UDEMY",
+        "degree": "Complete React Developer (w/ Redux, Hooks, GraphQL)",
+        "description": "This comprehensive React developer course provides an in-depth understanding of modern frontend development with React 18. The curriculum covers key concepts such as React Hooks, Context API, Suspense, React Lazy, and component-based architecture. It includes advanced state management using Redux, Redux Thunk, and Redux Saga, and explores GraphQL for efficient data fetching. Additional topics include authentication, Firebase integration, progressive web apps, and Stripe API for online payments. The course also emphasizes performance optimization, best practices, testing with Jest and Enzyme, and React design patterns for scalable application development."
+      },
+      "fullstack": {
+        "school": "UDEMY",
+        "degree": "Complete Web Developer",
+        "description": "This full-stack web development course covers modern technologies and best practices for building scalable applications. It includes frontend development with React and Redux, backend development using Node.js and Express, and database management with SQL and PostgreSQL. Key topics include authentication, REST API design, and full-stack project development. The course emphasizes clean code principles, debugging techniques, and the use of ChatGPT for developer productivity. Students complete multiple real-world projects, including a complex image recognition app, while gaining expertise in building professional portfolios and freelancing as web developers."
+      }
+    }
+  },
+  "Projects": {
+    "title": "Career Trophies",
+    "viewSite": "View site",
+    "confidential": "Confidential",
+    "projects": {
+      "microSaaS": {
+        "title": "Micro SaaS for File Processing",
+        "tag": "microsaas",
+        "description": "A cloud-based solution that removes personal information from DOC, DOCX, and XLSX documents. Features include batch processing, metadata analysis, and file encryption for secure handling of documents.",
+        "technologies": {
+          "FrontEnd": "React.js, TypeScript, Vite, TailwindCSS, ShadCN UI, React Query, Zustand",
+          "BackEnd": "Node.js, Express, Prisma, Zod, BullMQ",
+          "Server": "AWS Lambda, S3, CloudFront",
+          "Database": "PostgreSQL, Redis"
+        }
+      },
+      "restaurant": {
+        "title": "Restaurant Management System",
+        "tag": "restaurant",
+        "description": "A complete dashboard system for managing orders, tables, inventory, staff, and invoices. Supports multi-location synchronization for restaurant chains with real-time updates.",
+        "technologies": {
+          "FrontEnd": "Next.js, React Query, Zustand, TailwindCSS, ShadCN UI, Chart.js for analytics",
+          "BackEnd": "FastAPI, Celery, Pydantic",
+          "Server": "Docker, Nginx, Gunicorn",
+          "Database": "PostgreSQL, Redis"
+        }
+      },
+      "dental": {
+        "title": "Dental Clinic Management Application",
+        "tag": "dentalclinic",
+        "description": "A management system for dental clinics, handling patient records, medical history, billing, and appointment scheduling. Includes role-based access control for doctors and nurses.",
+        "technologies": {
+          "FrontEnd": "Next.js, React Query, Zustand, TailwindCSS, ShadCN UI, Google Calendar",
+          "BackEnd": "Express.js, Prisma, Zod, Lucia",
+          "Server": "Docker, PM2 ",
+          "Database": "PostgreSQL, MongoDB"
+        }
+      },
+      "vaknakonekta": {
+        "title": "Vaknakonekta",
+        "tag": "vaknakonekta",
+        "description": "A mobile and web ecommerce platform for selling fruits and vegetables. Includes a user-friendly interface, secure payment processing, and real-time inventory management.",
+        "technologies": {
+          "FrontEnd": "React Native, Nextjs, React, Zustand, TailwindCSS, ShadCN UI",
+          "BackEnd": "Node.js, Express, Prisma, Zod",
+          "Server": "AWS EC2, CloudFront, S3",
+          "Database": "PostgreSQL, Redis"
+        }
+      },
+      "plate": {
+        "title": "Dishware Rental System",
+        "tag": "dishware",
+        "description": "A digital platform for managing dishware rentals for events, including order processing, availability tracking, and real-time notifications for rental returns.",
+        "technologies": {
+          "FrontEnd": "React.js, React Native for mobile, Zustand, TailwindCSS, ShadCN UI",
+          "BackEnd": "Node.js, NestJS, GraphQL, Apollo Server",
+          "Server": "AWS EC2, CloudFront, S3",
+          "Database": "MySQL, Redis"
+        }
+      }
+    }
+  },
+  "Experience": {
+    "title": "War Stories",
+    "experiences": {
+      "oltek": {
+        "company": "Oltek.Studio",
+        "role": "Full-Stack Developer",
+        "shortDescription": "Development of an e-commerce platform and a mobile application using a microservices architecture.",
+        "longDescription": "As a Full-Stack Developer at Oltek.Studio, I contributed to the design and development of an e-commerce platform and a mobile application built on a microservices architecture. I collaborated closely with a cross-functional team to ensure seamless integration between various modules. I implemented complex features such as payment processing via Stripe, dynamic PDF generation using jsPDF, and state management with Redux and Zustand. I also optimized performance by leveraging Redis for caching and Kubernetes for Docker container orchestration.",
+        "technologies": {
+          "FrontEnd": "Next.js, Redux, Axios, TypeScript, TailwindCSS, jsPDF, Zustand, ShadCN UI",
+          "BackEnd": "Express.js, NestJS, Prisma, Zod, Stripe, GraphQL",
+          "Server": "PostgreSQL, Redis, Docker, Kubernetes"
+        }
+      },
+      "hospital": {
+        "company": "Andranomadio Lutheran Hospital",
+        "role": "Freelance Developer",
+        "shortDescription": "Migration of a Windev ERP system to Nuxt.js and redesign of consultation, hospitalization, and administration services.",
+        "longDescription": "As a freelance developer for Andranomadio Lutheran Hospital, I led the migration of a legacy Windev ERP system to a modern Nuxt.js-based solution. I redesigned and developed modules for consultation, hospitalization, and administration to enhance user experience and performance. I integrated technologies like WebSockets for real-time updates and NodeMailer for email notifications. The PostgreSQL database was optimized to handle large data volumes, and Nginx was configured to ensure high availability.",
+        "technologies": {
+          "FrontEnd": "Nuxt.js, Vuex, Axios, TypeScript, TailwindCSS, Vuetify",
+          "BackEnd": "Express.js, Prisma, Zod, NodeMailer, WebSockets",
+          "Server": "PostgreSQL, Redis, Nginx, Docker"
+        }
+      },
+      "local": {
+        "company": "Local Work",
+        "role": "Freelance Web Developer",
+        "shortDescription": "Creation of a restaurant management app and a desktop app for medical appointments with real-time synchronization.",
+        "longDescription": "For Local Work, I developed a restaurant management app and a desktop application for medical appointments with real-time synchronization. The restaurant management app enabled order, inventory, and reservation management, while the medical appointment software included features for syncing with doctors' and patients' calendars. I used FastAPI for the backend, Celery for asynchronous task management, and WebSockets for real-time synchronization. The application was deployed using AWS S3 for data storage and Docker for containerization.",
+        "technologies": {
+          "FrontEnd": "Next.js, Electron, Redux, TypeScript, TailwindCSS, ShadCN UI",
+          "BackEnd": "FastAPI, SQLAlchemy, Celery, Prisma, WebSockets",
+          "Server": "PostgreSQL, Redis, Docker, AWS S3"
+        }
+      },
+      "ysquad": {
+        "company": "Y²SQUAD",
+        "role": "Junior Web Developer",
+        "shortDescription": "Migration and redesign of WordPress sites to improve UX, performance, and security.",
+        "longDescription": "At Y²SQUAD, I participated in the migration and redesign of multiple WordPress sites to enhance user experience, performance, and security. I used Vue.js to create interactive components and optimized the sites for SEO using tools like Yoast SEO. I also configured Cloudflare CDN to improve load times and secured the sites with SSL certificates and firewalls. The MySQL database was optimized for faster queries, and Apache was configured for better traffic management.",
+        "technologies": {
+          "FrontEnd": "WordPress, Elementor, Vue.js, TailwindCSS, SEO Optimization Tools",
+          "BackEnd": "PHP, Laravel, MySQL",
+          "Server": "Apache, Docker, Cloudflare CDN"
+        }
+      },
+      "imperial": {
+        "company": "Imperial Tobacco Ltd",
+        "role": "Web Developer Intern",
+        "shortDescription": "Design and development of an internal inventory management site with custom features.",
+        "longDescription": "During my internship at Imperial Tobacco Ltd, I designed and developed an internal inventory management site with custom features tailored to the company's specific needs. I used React.js for the user interface, Redux for state management, and Node.js for the backend. I implemented features such as real-time inventory tracking with WebSockets, automated report generation, and integration with existing systems. The site was deployed using Docker for simplified environment management, and Nginx was used for load balancing.",
+        "technologies": {
+          "FrontEnd": "React.js, Redux, TypeScript, TailwindCSS, ShadCN UI",
+          "BackEnd": "Node.js, Express.js, Prisma, Zod, WebSockets",
+          "Server": "PostgreSQL, Redis, Docker, Nginx"
+        }
+      }
+    }
+  },
+  "Contact": {
+    "textHead": "Don't panic i'm here for you! 🤓",
+    "textContent": "Do not hesitate to contact me to discuss your projects or collaboration opportunities. We will evolve together",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message"
+    },
+    "btn": "Send"
+  },
+  "Toaster": {
+    "success": "Message sent with success",
+    "error": "OMG 😱, something went wrong"
+  },
+  "handleError": {
+    "title": "Error",
+    "form": "Hey, you forgot to give me your name",
+    "email": "Please, give me your mail to reply",
+    "message": "You forgot to tell me something"
+  }
+}
