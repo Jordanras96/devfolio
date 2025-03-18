@@ -1,19 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/email-template/EmailTemplate";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const { name, email, message } = req.body;
+export async function POST(request: Request) {
+  const { name, email, message } = await request.json();
 
   try {
     const data = await resend.emails.send({
@@ -27,22 +19,29 @@ export default async function handler(
       throw new Error(data.error.message);
     }
 
-    res.status(200).json(data);
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Erreur Resend:", error);
-    res.status(500).json({
-      error: "Échec de l'envoi du message",
-      details: error instanceof Error ? error.message : "Erreur inconnue",
-    });
+    return NextResponse.json(
+      {
+        error: "Échec de l'envoi du message",
+        details: error instanceof Error ? error.message : "Erreur inconnue",
+      },
+      { status: 500 }
+    );
   }
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, {
+  const response = new NextResponse(null, {
+    status: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Max-Age": "86400",
     },
   });
+
+  return response;
 }
