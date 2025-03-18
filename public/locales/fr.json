@@ -314,12 +314,12 @@
       "email": "email",
       "message": "message"
     },
-    "btn": "envoyer"
+    "btn": "envoyer",
+    "sending": "Envoi...",
+    "successMessage": "message envoyé avec succès",
+    "errorMessage": "oh oh! 😱 quelque chose s'est mal passé"
   },
-  "Toaster": {
-    "success": "message envoyé avec succès",
-    "error": "oh oh! 😱 quelque chose s'est mal passé"
-  },
+
   "handleError": {
     "title": "Error",
     "form": "Tu m'as pas dit comment tu t'appelles!",

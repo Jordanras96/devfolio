@@ -314,12 +314,12 @@
       "email": "Email",
       "message": "Message"
     },
-    "btn": "Send"
+    "btn": "Send",
+    "sending": "Sending...",
+    "successMessage": "Message sent with success",
+    "errorMessage": "OMG 😱, something went wrong"
   },
-  "Toaster": {
-    "success": "Message sent with success",
-    "error": "OMG 😱, something went wrong"
-  },
+
   "handleError": {
     "title": "Error",
     "form": "Hey, you forgot to give me your name",

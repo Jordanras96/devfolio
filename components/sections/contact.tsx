@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Github, Twitter, Linkedin, Mail, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function Contact() {
   const t = useTranslations("Contact");
@@ -12,11 +13,30 @@ export function Contact() {
     email: "",
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formState);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur réseau");
+      }
+
+      toast.success(t("successMessage"));
+      setFormState({ name: "", email: "", message: "" });
+    } catch {
+      toast.error(t("errorMessage"));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const contactData = [
@@ -33,17 +53,17 @@ export function Contact() {
   const socialLinks = [
     {
       icon: Github,
-      href: "https://github.com/yourusername",
+      href: "https://github.com/Jordanras96",
       color: "hover:text-gray-100",
     },
     {
       icon: Twitter,
-      href: "https://twitter.com/yourusername",
+      href: "https://twitter.com/JordanRiantsoa",
       color: "hover:text-blue-400",
     },
     {
       icon: Linkedin,
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://linkedin.com/in/jordanrasoloarison",
       color: "hover:text-blue-600",
     },
   ];
@@ -81,22 +101,23 @@ export function Contact() {
               {contactData[0].textContent}
             </p>
 
-            <div className="flex gap-4">
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={`p-3 rounded-full bg-accent ${link.color}`}
-                >
-                  <link.icon className="w-6 h-6" />
-                </motion.a>
-              ))}
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <div className="flex gap-4">
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`p-3 rounded-full bg-accent ${link.color}`}
+                  >
+                    <link.icon className="w-6 h-6" />
+                  </motion.a>
+                ))}
+              </div>
             </div>
-
             <div className="flex items-center gap-4 text-muted-foreground">
               <Mail className="w-6 h-6" />
               <span>riantsoa96@gmail.com</span>
@@ -176,11 +197,16 @@ export function Contact() {
             </motion.div>
 
             <motion.button
+              type="submit"
+              disabled={isLoading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center justify-center w-full gap-2 px-6 py-3 font-medium text-white normal-case transition-opacity rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90"
+              className={`flex items-center justify-center w-full gap-2 px-6 py-3 font-medium text-white normal-case transition-opacity rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"
+              }`}
             >
-              {contactData[0].btn} <Send className="w-4 h-4" />
+              {isLoading ? t("sending") : contactData[0].btn}
+              <Send className="w-4 h-4" />
             </motion.button>
           </motion.form>
         </div>

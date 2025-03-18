@@ -69,12 +69,12 @@ export function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="relative group"
+              className="relative group h-full"
               onClick={() => setSelectedEdu(index)}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300" />
               <motion.div
-                className="relative bg-background/50 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 overflow-hidden cursor-pointer"
+                className="relative bg-background/50 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 overflow-hidden cursor-pointer h-full flex flex-col"
                 whileHover={{
                   scale: 1.02,
                   boxShadow: [
@@ -90,12 +90,19 @@ export function Education() {
                   },
                 }}
               >
-                <div className="mb-4">
+                {/* Header avec l'icône */}
+                <div className="header mb-4">
                   <GraduationCap className="w-8 h-8 text-purple-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">{edu.degree}</h3>
-                <p className="text-muted-foreground mb-2">{edu.school}</p>
-                <p className="text-sm text-muted-foreground">{edu.years}</p>
+
+                {/* Contenu principal */}
+                <h3 className="text-xl font-bold mb-2 flex-1">{edu.degree}</h3>
+
+                {/* Footer avec les informations secondaires */}
+                <div className="footer mt-auto">
+                  <p className="text-muted-foreground mb-2">{edu.school}</p>
+                  <p className="text-sm text-muted-foreground">{edu.years}</p>
+                </div>
               </motion.div>
             </motion.div>
           ))}

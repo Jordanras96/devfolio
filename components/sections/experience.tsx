@@ -77,14 +77,14 @@ export function Experience() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="max-w-7xl mx-auto px-6"
+        className="max-w-7xl mx-auto px-4 sm:px-6"
       >
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-16 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
           {t("title")}
         </h2>
 
         <div className="relative">
-          <div className="absolute left-1/2 h-full w-px bg-gradient-to-b from-cyan-500 to-blue-500" />
+          <div className="absolute left-1/2 h-full w-px bg-gradient-to-b from-cyan-500 to-blue-500 transform -translate-x-1/2" />
 
           {experiences.map((exp, index) => (
             <Dialog key={index}>
@@ -95,8 +95,8 @@ export function Experience() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
                   whileHover={{ scale: 1.02 }}
-                  className={`flex items-center gap-8 mb-12 cursor-pointer ${
-                    exp.side === "right" ? "flex-row" : "flex-row-reverse"
+                  className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-8 md:mb-12 cursor-pointer ${
+                    exp.side === "right" ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
                   <div
@@ -104,17 +104,19 @@ export function Experience() {
                       exp.side === "right" ? "text-right" : "text-left"
                     }`}
                   >
-                    <h3 className="text-2xl font-bold mb-2">{exp.company}</h3>
-                    <h4 className="text-xl text-muted-foreground mb-2">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                      {exp.company}
+                    </h3>
+                    <h4 className="text-lg sm:text-xl text-muted-foreground mb-2">
                       {exp.role}
                     </h4>
-                    <p className="text-muted-foreground">
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       {exp.shortDescription}
                     </p>
                   </div>
 
-                  <div className="relative z-10 bg-background rounded-full p-3 border-2 border-cyan-500">
-                    <Building2 className="w-6 h-6 text-cyan-500" />
+                  <div className="relative z-10 bg-background rounded-full p-2 sm:p-3 border-2 border-cyan-500">
+                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-500" />
                   </div>
 
                   <div className="flex-1">
@@ -124,7 +126,9 @@ export function Experience() {
                       }`}
                     >
                       <Calendar className="w-5 h-5 text-blue-500" />
-                      <span className="text-muted-foreground">{exp.years}</span>
+                      <span className="text-sm sm:text-base text-muted-foreground">
+                        {exp.years}
+                      </span>
                     </div>
                   </div>
                 </motion.div>

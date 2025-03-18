@@ -67,10 +67,10 @@ const EmblaCarousel = ({ slides, options }: PropType) => {
     // <div className="py-20 relative overflow-hidden bg-accent/20 w-full">
     <section className="embla ">
       <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container ">
+        <div className="embla__container px-4 md:px-0">
           {slides.map((items, index) => (
             <div key={index} className="embla__slide">
-              <Card className="bg-tran dark:bg-gray-800 shadow-neomorph hover:shadow-neomorph-hover transition-all duration-300 h-full flex flex-col justify-between transform hover:scale-95 z-10 hover:z-20">
+              <Card className="bg-tran dark:bg-gray-800 shadow-neomorph hover:shadow-neomorph-hover transition-all duration-300 h-full flex flex-col justify-between transform hover:scale-95 z-10 hover:z-20 mx-2">
                 <CardHeader className="flex-shrink-0 w-full">
                   <div className="w-full h-[150px] relative mb-4 rounded-lg overflow-hidden">
                     <Image
