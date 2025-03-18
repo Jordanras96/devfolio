@@ -5,49 +5,50 @@ import React from "react";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: Request) {
-  const { name, email, message } = await request.json();
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
+export async function POST(request: Request) {
   try {
-    const data = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
+    const body = await request.json();
+
+    const { data, error } = await resend.emails.send({
+      from: "Portfolio <contact@votredomaine.com>",
       to: "riantsoa96@gmail.com",
-      subject: `Nouveau message de ${name}`,
-      react: EmailTemplate({ name, email, message }) as React.ReactElement,
+      subject: `Nouveau message de ${body.name}`,
+      react: EmailTemplate(body) as React.ReactElement,
     });
 
-    if (data.error) {
-      throw new Error(data.error.message);
+    if (error) {
+      console.error("Erreur Resend:", error);
+      throw new Error("Échec de l'envoi via Resend");
     }
 
-    return NextResponse.json(data, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    });
-  } catch (error) {
-    console.error("Erreur Resend:", error);
     return NextResponse.json(
       {
-        error: "Échec de l'envoi du message",
-        details: error instanceof Error ? error.message : "Erreur inconnue",
+        success: true,
+        emailId: data?.id,
       },
-      { status: 500 }
+      { headers: CORS_HEADERS }
+    );
+  } catch (error) {
+    console.error("Erreur API:", error);
+    return NextResponse.json(
+      {
+        error: "Échec de l'envoi",
+        details: error instanceof Error ? error.message : error,
+      },
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
 
 export async function OPTIONS() {
-  return NextResponse.json(
-    {},
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    }
-  );
+  return new NextResponse(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  });
 }
