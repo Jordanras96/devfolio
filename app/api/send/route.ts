@@ -1,54 +1,56 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/email-template/EmailTemplate";
-import React from "react";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
-
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
+  const { name, email, message } = await request.json();
 
-    const { data, error } = await resend.emails.send({
-      from: "Portfolio <contact@votredomaine.com>",
+  try {
+    const data = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
       to: "riantsoa96@gmail.com",
-      subject: `Nouveau message de ${body.name}`,
-      react: EmailTemplate(body) as React.ReactElement,
+      subject: `[DEVFOLIO] Nouveau message de ${name}`,
+      react: EmailTemplate({ name, email, message }) as React.ReactElement,
     });
 
-    if (error) {
-      console.error("Erreur Resend:", error);
-      throw new Error("Échec de l'envoi via Resend");
+    if (data.error) {
+      throw new Error(data.error.message);
     }
 
-    return NextResponse.json(
-      {
-        success: true,
-        emailId: data?.id,
+    return NextResponse.json(data, {
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Autorise toutes les origines
+        "Access-Control-Allow-Methods": "POST, OPTIONS", // Autorise les méthodes POST et OPTIONS
+        "Access-Control-Allow-Headers": "Content-Type", // Autorise l'en-tête Content-Type
       },
-      { headers: CORS_HEADERS }
-    );
+    });
   } catch (error) {
-    console.error("Erreur API:", error);
+    console.error("Erreur Resend:", error);
     return NextResponse.json(
       {
-        error: "Échec de l'envoi",
-        details: error instanceof Error ? error.message : error,
+        error: "Échec de l'envoi du message",
+        details: error instanceof Error ? error.message : "Erreur inconnue",
       },
-      { status: 500, headers: CORS_HEADERS }
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      }
     );
   }
 }
 
 export async function OPTIONS() {
   return new NextResponse(null, {
-    status: 204,
-    headers: CORS_HEADERS,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
   });
 }

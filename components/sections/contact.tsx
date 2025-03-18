@@ -30,9 +30,13 @@ export function Contact() {
         throw new Error("Erreur réseau");
       }
 
+      const data = await response.json();
+      console.log(data); // Ajoutez ce log pour vérifier la réponse
+
       toast.success(t("successMessage"));
       setFormState({ name: "", email: "", message: "" });
-    } catch {
+    } catch (error) {
+      console.error("Erreur:", error); // Ajoutez ce log pour capturer les erreurs
       toast.error(t("errorMessage"));
     } finally {
       setIsLoading(false);
