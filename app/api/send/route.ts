@@ -4,6 +4,13 @@ import { EmailTemplate } from "@/components/email-template/EmailTemplate";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+resend.domains.create({ name: "jordanrasoloarison.devfolio" });
+resend.domains.get(
+  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC16W0R4SK/pl0XHJpX+dhQQOFkBZtP0SuGDawNuBxpbwSwMNvLTbU2YPZ/QbJxzcGcQu5OkPhoiHMOv9fUqog2rdjKbAUWABGXk00LIqKEpYp38pQZk3lfBanAxW2oltajO52NT/udXUEg6jxQGmXjgloqeLiwhKYOkwsyGu8PHwIDAQAB"
+);
+resend.domains.verify(
+  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC16W0R4SK/pl0XHJpX+dhQQOFkBZtP0SuGDawNuBxpbwSwMNvLTbU2YPZ/QbJxzcGcQu5OkPhoiHMOv9fUqog2rdjKbAUWABGXk00LIqKEpYp38pQZk3lfBanAxW2oltajO52NT/udXUEg6jxQGmXjgloqeLiwhKYOkwsyGu8PHwIDAQAB"
+);
 // Fonction pour gérer les requêtes OPTIONS (pré-vol CORS)
 export async function OPTIONS() {
   return new NextResponse(null, {
