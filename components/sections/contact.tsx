@@ -27,6 +27,8 @@ export function Contact() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json(); // Capturez les détails de l'erreur
+        console.error("Erreur serveur:", errorData);
         throw new Error("Erreur réseau");
       }
 

@@ -5,7 +5,9 @@ import { EmailTemplate } from "@/components/email-template/EmailTemplate";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
+  console.log("Requête reçue"); // Log pour vérifier que la route est appelée
   const { name, email, message } = await request.json();
+  console.log("Données reçues:", { name, email, message }); // Log pour vérifier les données
 
   try {
     const data = await resend.emails.send({
@@ -14,6 +16,8 @@ export async function POST(request: Request) {
       subject: `[DEVFOLIO] Nouveau message de ${name}`,
       react: EmailTemplate({ name, email, message }) as React.ReactElement,
     });
+
+    console.log("Réponse Resend:", data); // Log pour vérifier la réponse de Resend
 
     if (data.error) {
       throw new Error(data.error.message);
