@@ -20,7 +20,10 @@ export async function OPTIONS() {
 export async function POST(request: Request) {
   // Vérifiez l'origine de la requête (optionnel, pour renforcer la sécurité)
   const origin = request.headers.get("origin");
-  const allowedOrigins = ["https://votre-domaine.com", "http://localhost:3000"]; // Ajoutez vos domaines autorisés
+  const allowedOrigins = [
+    "https://devfolio-jade.vercel.app/",
+    "http://localhost:3000",
+  ]; // Ajoutez vos domaines autorisés
 
   if (origin && !allowedOrigins.includes(origin)) {
     return new NextResponse("Origine non autorisée", { status: 403 });
