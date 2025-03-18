@@ -27,18 +27,18 @@ export function Contact() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json(); // Capturez les détails de l'erreur
+        const errorData = await response.json();
         console.error("Erreur serveur:", errorData);
-        throw new Error("Erreur réseau");
+        throw new Error(errorData.error || "Erreur réseau");
       }
 
       const data = await response.json();
-      console.log(data); // Ajoutez ce log pour vérifier la réponse
+      console.log(data);
 
       toast.success(t("successMessage"));
       setFormState({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error("Erreur:", error); // Ajoutez ce log pour capturer les erreurs
+      console.error("Erreur:", error);
       toast.error(t("errorMessage"));
     } finally {
       setIsLoading(false);
