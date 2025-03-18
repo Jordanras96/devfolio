@@ -1,13 +1,19 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/email-template/EmailTemplate";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: Request) {
-  console.log("Requête reçue"); // Log pour vérifier que la route est appelée
-  const { name, email, message } = await request.json();
-  console.log("Données reçues:", { name, email, message }); // Log pour vérifier les données
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
+
+  const { name, email, message } = req.body;
 
   try {
     const data = await resend.emails.send({
@@ -17,35 +23,17 @@ export async function POST(request: Request) {
       react: EmailTemplate({ name, email, message }) as React.ReactElement,
     });
 
-    console.log("Réponse Resend:", data); // Log pour vérifier la réponse de Resend
-
     if (data.error) {
       throw new Error(data.error.message);
     }
 
-    return NextResponse.json(data, {
-      headers: {
-        "Access-Control-Allow-Origin": "*", // Autorise toutes les origines
-        "Access-Control-Allow-Methods": "POST, OPTIONS", // Autorise les méthodes POST et OPTIONS
-        "Access-Control-Allow-Headers": "Content-Type", // Autorise l'en-tête Content-Type
-      },
-    });
+    res.status(200).json(data);
   } catch (error) {
     console.error("Erreur Resend:", error);
-    return NextResponse.json(
-      {
-        error: "Échec de l'envoi du message",
-        details: error instanceof Error ? error.message : "Erreur inconnue",
-      },
-      {
-        status: 500,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      }
-    );
+    res.status(500).json({
+      error: "Échec de l'envoi du message",
+      details: error instanceof Error ? error.message : "Erreur inconnue",
+    });
   }
 }
 
