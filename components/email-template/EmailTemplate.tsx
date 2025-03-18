@@ -13,124 +13,139 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 }) => (
   <div
     style={{
-      fontFamily: "Helvetica, Arial, sans-serif",
+      fontFamily: "'Imprima', Arial, sans-serif",
       maxWidth: "600px",
       margin: "0 auto",
+      backgroundColor: "#EFEFEF",
+      borderRadius: "20px",
     }}
   >
-    {/* En-tête */}
+    {/* Corps principal */}
     <div
       style={{
-        backgroundColor: "#ec4899",
-        padding: "20px",
-        textAlign: "center",
-        borderTopLeftRadius: "8px",
-        borderTopRightRadius: "8px",
+        padding: "40px 40px 30px",
+        backgroundColor: "#fafafa",
+        margin: "20px 40px",
+        borderRadius: "10px",
       }}
     >
-      <h1
+      <h3
         style={{
-          color: "white",
-          margin: 0,
-          fontSize: "24px",
+          fontSize: "28px",
+          color: "#2D3142",
+          margin: "0 0 20px 0",
           fontWeight: "bold",
         }}
       >
-        Nouveau message depuis votre portfolio
-      </h1>
-    </div>
+        Nouveau message de {name}
+      </h3>
 
-    {/* Corps du message */}
-    <div
-      style={{
-        padding: "30px",
-        backgroundColor: "#f9fafb",
-        borderBottomLeftRadius: "8px",
-        borderBottomRightRadius: "8px",
-      }}
-    >
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <tbody>
-          <tr>
-            <td
-              style={{ padding: "15px 0", borderBottom: "1px solid #e5e7eb" }}
-            >
-              <strong style={{ color: "#6b7280", minWidth: "80px" }}>
-                Expéditeur:
-              </strong>
-              <span style={{ color: "#111827", marginLeft: "10px" }}>
-                {name}
-              </span>
-            </td>
-          </tr>
+      <div
+        style={{
+          borderBottom: "1px solid #666666",
+          marginBottom: "30px",
+          paddingBottom: "20px",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "18px",
+            color: "#2D3142",
+            lineHeight: "27px",
+            margin: "0 0 15px 0",
+          }}
+        >
+          <strong>Email :</strong>{" "}
+          <a
+            href={`mailto:${email}`}
+            style={{
+              color: "#7630f3",
+              textDecoration: "none",
+              fontWeight: "bold",
+            }}
+          >
+            {email}
+          </a>
+        </p>
+      </div>
 
-          <tr>
-            <td
-              style={{ padding: "15px 0", borderBottom: "1px solid #e5e7eb" }}
-            >
-              <strong style={{ color: "#6b7280" }}>Email:</strong>
-              <a
-                href={`mailto:${email}`}
-                style={{
-                  color: "#3b82f6",
-                  textDecoration: "none",
-                  marginLeft: "10px",
-                }}
-              >
-                {email}
-              </a>
-            </td>
-          </tr>
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "25px",
+          borderRadius: "8px",
+          marginBottom: "30px",
+        }}
+      >
+        <h4
+          style={{
+            fontSize: "20px",
+            color: "#2D3142",
+            margin: "0 0 15px 0",
+          }}
+        >
+          Message :
+        </h4>
+        <div
+          style={{
+            color: "#4a4a4a",
+            lineHeight: "1.6",
+            fontSize: "16px",
+          }}
+        >
+          {message.split("\n").map((line, i) => (
+            <p key={i} style={{ margin: "10px 0" }}>
+              {line}
+            </p>
+          ))}
+        </div>
+      </div>
 
-          <tr>
-            <td style={{ padding: "15px 0" }}>
-              <div style={{ marginTop: "20px" }}>
-                <div
-                  style={{
-                    color: "#6b7280",
-                    fontSize: "14px",
-                    marginBottom: "8px",
-                  }}
-                >
-                  Message :
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    padding: "20px",
-                    borderRadius: "6px",
-                    border: "1px solid #e5e7eb",
-                    lineHeight: "1.6",
-                    color: "#374151",
-                  }}
-                >
-                  {message.split("\n").map((line, i) => (
-                    <p key={i} style={{ margin: "8px 0" }}>
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <p
+        style={{
+          fontSize: "16px",
+          color: "#666666",
+          textAlign: "center",
+          margin: "40px 0 0",
+        }}
+      >
+        Ce message a été envoyé via le formulaire de contact de votre portfolio
+      </p>
     </div>
 
     {/* Pied de page */}
     <div
       style={{
+        backgroundColor: "#bcb8b1",
+        padding: "20px 40px",
+        borderBottomLeftRadius: "20px",
+        borderBottomRightRadius: "20px",
         textAlign: "center",
-        padding: "20px",
-        color: "#6b7280",
-        fontSize: "12px",
       }}
     >
-      <p style={{ margin: "4px 0" }}>
-        Cet email a été envoyé depuis le formulaire de contact de votre
-        portfolio
+      <p
+        style={{
+          fontSize: "14px",
+          color: "#2D3142",
+          margin: "10px 0",
+        }}
+      >
+        {new Date().toLocaleDateString("fr-FR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
       </p>
-      <p style={{ margin: "4px 0" }}>{new Date().toLocaleDateString()}</p>
+      <p
+        style={{
+          fontSize: "12px",
+          color: "#4a4a4a",
+          margin: "10px 0",
+        }}
+      >
+        © {new Date().getFullYear()} Jordan Ny Riantsoa RASOLOARISON - Tous
+        droits réservés
+      </p>
     </div>
   </div>
 );

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/email-template/EmailTemplate";
+import React from "react";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -9,14 +10,44 @@ export async function POST(request: Request) {
 
   try {
     const data = await resend.emails.send({
-      from: "Contact Form <onboarding@resend.dev>",
+      from: "Portfolio Contact <onboarding@resend.dev>",
       to: "riantsoa96@gmail.com",
-      subject: "[URGENT] Message depuis Devfolio",
+      subject: `Nouveau message de ${name}`,
       react: EmailTemplate({ name, email, message }) as React.ReactElement,
     });
 
-    return NextResponse.json(data);
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+
+    return NextResponse.json(data, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("Erreur Resend:", error);
+    return NextResponse.json(
+      {
+        error: "Échec de l'envoi du message",
+        details: error instanceof Error ? error.message : "Erreur inconnue",
+      },
+      { status: 500 }
+    );
   }
+}
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  );
 }
