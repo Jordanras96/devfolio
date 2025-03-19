@@ -1,6 +1,7 @@
+"use server";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { EmailTemplate } from "@/components/email-template/EmailTemplate";
+import { sendEmail } from "@/utils/emailUtils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -39,41 +40,11 @@ export async function POST(request: Request) {
   // Traitez le corps de la requête
   const { name, email, message } = await request.json();
 
-  try {
-    // Envoyez l'e-mail via Resend
-    const data = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "riantsoa96@gmail.com",
-      subject: `[DEVFOLIO] Nouveau message de ${name}`,
-      react: EmailTemplate({ name, email, message }) as React.ReactElement,
-    });
+  const response = await sendEmail({ name, email, message });
 
-    if (data.error) {
-      throw new Error(data.error.message);
-    }
-
-    // Réponse réussie
-    return new NextResponse(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": origin || "*", // Autoriser l'origine de la requête
-        "Content-Type": "application/json",
-      },
-    });
-  } catch (error) {
-    console.error("Erreur Resend:", error);
-    return new NextResponse(
-      JSON.stringify({
-        error: "Échec de l'envoi du message",
-        details: error instanceof Error ? error.message : "Erreur inconnue",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*", // Autoriser l'origine de la requête
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  if (!response.success) {
+    return NextResponse.json({ error: response.error }, { status: 500 });
   }
+
+  return NextResponse.json(response.data, { status: 200 });
 }
