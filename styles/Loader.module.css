@@ -32,13 +32,13 @@
 
 .word span {
   display: inline-block;
-  transform: translateX(100%) scale(0.9);
-  transition: transform 500ms;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
 }
 
 .word .done {
-  color: rgb(177, 176, 176);
-  transform: translateX(0) scale(1);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .overlay {
@@ -61,17 +61,16 @@
 
 @media (max-width: 480px) {
   .word {
-    font-size: 5vw; /* La taille de la police est relative à la largeur de la fenêtre */
-    white-space: nowrap; /* Empêche le texte de se diviser en plusieurs lignes */
-    overflow: hidden; /* Cache le texte qui dépasse */
-    text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+    font-size: 6vw;
   }
   .word span {
-    transition: transform 300ms; /* Réduire la durée de la transition sur les petits écrans */
+    transition: opacity 200ms, transform 200ms;
   }
   .container {
-    padding: 10px 0 0 10px; /* Réduire le padding sur les petits écrans */
-    flex-direction: column; /* Changer la direction des éléments sur les petits écrans */
+    background: #000500;
+  }
+  .overlay {
+    background-size: 500px 2px;
   }
   .flex > div {
     width: 2em;

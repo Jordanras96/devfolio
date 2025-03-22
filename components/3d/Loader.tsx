@@ -22,7 +22,7 @@ export function Loader() {
   return (
     <div className={styles.container}>
       <div ref={wordRef} className={styles.word}>
-        Welcome&nbsp;to&nbsp;Jordan&apos;s&nbsp;Portfolio
+        Hi&nbsp;there!
       </div>
 
       <div className={styles.overlay}></div>

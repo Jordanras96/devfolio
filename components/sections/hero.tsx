@@ -79,6 +79,8 @@ export function Hero() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const t = useTranslations("Me");
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
   return (
     <section className="relative min-h-[calc(100vh-4rem)] md:min-h-screen overflow-hidden bg-background">
       <div className="absolute inset-0">
@@ -158,9 +160,12 @@ export function Hero() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{
+            duration: isMobile ? 0.5 : 0.8,
+            delay: isMobile ? 0.2 : 0.4,
+          }}
           className="grid grid-cols-2 gap-4 md:gap-6 mt-8 md:mt-12 md:grid-cols-4"
         >
           {skillCategories.map((category) => (
@@ -198,6 +203,8 @@ export function Hero() {
                     width={8}
                     height={8}
                     className="w-8 h-8"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 32px, 32px"
                   />
                 ))}
               </motion.div>

@@ -141,7 +141,11 @@ export function Contact() {
               whileFocus="focus"
               className="space-y-2"
             >
-              <label htmlFor="name" className="text-sm font-medium normal-case">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium normal-case"
+                id="name-label"
+              >
                 {contactData[0].nameForm}
               </label>
               <input
@@ -153,6 +157,8 @@ export function Contact() {
                 }
                 className="w-full px-4 py-2 border rounded-lg bg-accent/50 border-accent focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 required
+                aria-labelledby="name-label"
+                aria-required="true"
               />
             </motion.div>
 

@@ -24,12 +24,16 @@ export function Navbar({ show }: NavbarProps) {
           )}
         >
           <div className=" mx-auto flex items-center justify-around">
-            <Avatar className="h-16 w-16">
+            <Avatar
+              className="h-16 w-16"
+              aria-label="Photo de profil de Jordan Rasoloarison"
+            >
               <Image
                 src="/images/me/self.webp"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt="Profile"
+                sizes="(max-width: 768px) 64px, 64px"
+                alt="Photo de profil"
                 fill
+                priority
               />
             </Avatar>
 

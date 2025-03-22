@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   DotButton,
   useDotButton,
 } from "@/components/carousel/EmblaCarouselDotButtons";
-import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
+import { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -43,160 +43,117 @@ type PropType = {
   options?: EmblaOptionsType;
 };
 
-const EmblaCarousel = ({ slides, options }: PropType) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+const EmblaCarousel: React.FC<PropType> = (props) => {
+  // Optimiser les options du carrousel pour mobile
+  const OPTIONS: EmblaOptionsType = {
+    loop: true,
+    skipSnaps: false,
+    dragFree: false,
+    containScroll: "trimSnaps",
+  };
 
-  const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
-    const autoplay = emblaApi?.plugins()?.autoplay;
-    if (!autoplay) return;
+  // Utiliser les options passées en props ou les options par défaut
+  const options = props.options || OPTIONS;
 
-    const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-        ? autoplay.reset
-        : autoplay.stop;
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [
+    Autoplay({ delay: 7000, stopOnInteraction: false }),
+  ]);
 
-    resetOrStop();
-  }, []);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
-    emblaApi,
-    onNavButtonClick
-  );
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
 
   return (
-    // <div className="py-20 relative overflow-hidden bg-accent/20 w-full">
-    <section className="embla ">
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container px-4 md:px-0">
-          {slides.map((items, index) => (
-            <div key={index} className="embla__slide">
-              <Card className="bg-tran dark:bg-gray-800 shadow-neomorph hover:shadow-neomorph-hover transition-all duration-300 h-full flex flex-col justify-between transform hover:scale-95 z-10 hover:z-20 mx-2">
-                <CardHeader className="flex-shrink-0 w-full">
-                  <div className="w-full h-[150px] relative mb-4 rounded-lg overflow-hidden">
-                    <Image
-                      src={items.image}
-                      alt={items.title}
-                      fill
-                      className="object-cover"
-                    />
-                    {items.confidential && (
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                        <Lock className="w-12 h-12 text-white/80 animate-pulse" />
-                      </div>
-                    )}
-                  </div>
-                  <CardTitle>
-                    <h3 className="text-xl font-bold mb-2">{items.title}</h3>
-                  </CardTitle>
-                  <CardDescription className="mb-4 text-muted-foreground line-clamp-2">
-                    {items.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="h-60 overflow-auto flex flex-col gap-1 w-full">
-                  <div className="text-sm">
-                    <span className="font-semibold">Frontend:</span>
-                    <p className="font-normal text-muted-foreground">
-                      {items.frontend}
+    <section className="embla">
+      <div className="embla__viewport-container">
+        <div
+          className="embla__viewport"
+          ref={emblaRef}
+          aria-label="Galerie de projets"
+          role="region"
+        >
+          <div className="embla__container">
+            {props.slides.map((items, index) => (
+              <div className="embla__slide" key={index}>
+                <Card className="h-full">
+                  <CardHeader>
+                    <CardTitle>{items.title}</CardTitle>
+                    <CardDescription>{items.tag}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="relative h-48 mb-4 overflow-hidden rounded-md">
+                      <Image
+                        src={items.image}
+                        alt={items.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="text-muted-foreground line-clamp-3">
+                      {items.description}
                     </p>
-                  </div>
-                  <div className="text-sm ">
-                    <span className="font-semibold">Backend:</span>
-                    <p className="font-normal text-muted-foreground">
-                      {items.backend}
-                    </p>
-                  </div>
-                  <div className="text-sm ">
-                    <span className="font-semibold">Server:</span>
-                    <p className="font-normal text-muted-foreground">
-                      {items.server}
-                    </p>
-                  </div>
-                  <div className="text-sm">
-                    <span className="font-semibold">Database:</span>
-                    <p className="font-normal text-muted-foreground">
-                      {items.database}
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter className="mt-auto w-full flex justify-center">
-                  {!items.confidential ? (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="flex items-center gap-2 px-4 rounded-lg bg-accent text-accent-foreground"
-                        >
-                          Voir plus
-                          <ExternalLink className="w-4 h-4" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-3xl bg-background">
-                        <DialogHeader>
-                          <DialogTitle>{items.title}</DialogTitle>
-                        </DialogHeader>
-                        <div className="grid grid-cols-2 gap-4 py-4">
-                          {/* Galerie d'images */}
-                          {[1, 2, 3, 4].map((imgIndex) => (
-                            <div
-                              key={imgIndex}
-                              className="relative h-40 rounded-lg overflow-hidden"
-                            >
-                              <Image
-                                src={`/images/gallery/${items.tag.toLowerCase()}-${imgIndex}.webp`}
-                                alt={`Preview ${imgIndex}`}
-                                fill
-                                className="object-cover"
-                              />
+                  </CardContent>
+                  <CardFooter>
+                    {!items.confidential ? (
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="flex items-center gap-2"
+                          >
+                            Détails <ExternalLink className="w-4 h-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>{items.title}</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <p>{items.description}</p>
+                            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                              <div>
+                                <h4 className="font-semibold">Frontend</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {items.frontend}
+                                </p>
+                              </div>
+                              <div>
+                                <h4 className="font-semibold">Backend</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {items.backend}
+                                </p>
+                              </div>
+                              <div>
+                                <h4 className="font-semibold">Server</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {items.server}
+                                </p>
+                              </div>
+                              <div>
+                                <h4 className="font-semibold">Database</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {items.database}
+                                </p>
+                              </div>
                             </div>
-                          ))}
-                        </div>
-                        <div className="mb-4 text-muted-foreground">
-                          {items.description}
-                        </div>
-                        {/* Grille des technologies */}
-                        <div className="grid grid-cols-4 gap-4 mt-4">
-                          <div className="text-center p-2 bg-accent rounded-lg">
-                            <p className="text-sm font-semibold">Frontend</p>
-                            <p className="text-xs text-muted-foreground">
-                              {items.frontend}
-                            </p>
                           </div>
-                          <div className="text-center p-2 bg-accent rounded-lg">
-                            <p className="text-sm font-semibold">Backend</p>
-                            <p className="text-xs text-muted-foreground">
-                              {items.backend}
-                            </p>
-                          </div>
-                          <div className="text-center p-2 bg-accent rounded-lg">
-                            <p className="text-sm font-semibold">Serveur</p>
-                            <p className="text-xs text-muted-foreground">
-                              {items.server}
-                            </p>
-                          </div>
-                          <div className="text-center p-2 bg-accent rounded-lg">
-                            <p className="text-sm font-semibold">
-                              Base de données
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {items.database}
-                            </p>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  ) : (
-                    <Button
-                      disabled
-                      variant="outline"
-                      className="flex items-center gap-2"
-                    >
-                      Confidentiel <Lock className="w-4 h-4" />
-                    </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
+                        </DialogContent>
+                      </Dialog>
+                    ) : (
+                      <Button
+                        disabled
+                        variant="outline"
+                        className="flex items-center gap-2"
+                      >
+                        Confidentiel <Lock className="w-4 h-4" />
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -206,15 +163,13 @@ const EmblaCarousel = ({ slides, options }: PropType) => {
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={"embla__dot bg-red-500 text-blue-600 border-green-500 ring-yellow-400".concat(
-                index === selectedIndex ? " embla__dot--selected" : ""
-              )}
+              className={index === selectedIndex ? "embla__dot--selected" : ""}
+              aria-label={`Aller au projet ${index + 1}`}
             />
           ))}
         </div>
       </div>
     </section>
-    // </div>
   );
 };
 

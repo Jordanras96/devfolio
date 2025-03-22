@@ -11,7 +11,7 @@ import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Contact } from "@/components/sections/contact";
-import { Loader } from "@/components/3d/Loader";
+import { LightLoader } from "@/components/3d/LightLoader";
 import { LocaleProvider } from "./LocaleProvider";
 import { AbstractIntlMessages } from "next-intl";
 
@@ -38,13 +38,13 @@ export function LoadingWrapper({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 5000); // Délai de 5 secondes
+    }, 3000); // Réduire de 5000ms à 3000ms
 
-    return () => clearTimeout(timer); // Nettoyage
+    return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    return <Loader />;
+    return <LightLoader />;
   }
 
   return (
