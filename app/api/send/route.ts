@@ -1,50 +1,55 @@
 "use server";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { sendEmail } from "@/utils/emailUtils";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-resend.domains.create({ name: "jordanrasoloarison.devfolio" });
-resend.domains.get(
-  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC16W0R4SK/pl0XHJpX+dhQQOFkBZtP0SuGDawNuBxpbwSwMNvLTbU2YPZ/QbJxzcGcQu5OkPhoiHMOv9fUqog2rdjKbAUWABGXk00LIqKEpYp38pQZk3lfBanAxW2oltajO52NT/udXUEg6jxQGmXjgloqeLiwhKYOkwsyGu8PHwIDAQAB"
-);
-resend.domains.verify(
-  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC16W0R4SK/pl0XHJpX+dhQQOFkBZtP0SuGDawNuBxpbwSwMNvLTbU2YPZ/QbJxzcGcQu5OkPhoiHMOv9fUqog2rdjKbAUWABGXk00LIqKEpYp38pQZk3lfBanAxW2oltajO52NT/udXUEg6jxQGmXjgloqeLiwhKYOkwsyGu8PHwIDAQAB"
-);
-// Fonction pour gérer les requêtes OPTIONS (pré-vol CORS)
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Autoriser toutes les origines (à adapter en production)
-      "Access-Control-Allow-Methods": "POST, OPTIONS", // Méthodes autorisées
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // En-têtes autorisés
-    },
-  });
-}
+import { EmailTemplate } from "@/components/email-template/EmailTemplate";
 
 // Fonction pour gérer les requêtes POST
 export async function POST(request: Request) {
-  // Vérifiez l'origine de la requête (optionnel, pour renforcer la sécurité)
-  const origin = request.headers.get("origin");
-  const allowedOrigins = [
-    "https://devfolio-jade.vercel.app/",
-    "http://localhost:3000",
-  ]; // Ajoutez vos domaines autorisés
+  // Vérification de l'API key avant toute opération
+  const apiKey = process.env.RESEND_API_KEY;
 
-  if (origin && !allowedOrigins.includes(origin)) {
-    return new NextResponse("Origine non autorisée", { status: 403 });
+  if (!apiKey) {
+    console.error(
+      "Erreur: RESEND_API_KEY n'est pas définie dans l'environnement",
+      { env: process.env.NODE_ENV }
+    );
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Configuration du serveur incorrecte: clé API manquante",
+      },
+      { status: 500 }
+    );
   }
 
-  // Traitez le corps de la requête
-  const { name, email, message } = await request.json();
+  // Initialisation de Resend avec l'API key vérifiée
+  const resend = new Resend(apiKey);
 
-  const response = await sendEmail({ name, email, message });
+  try {
+    // Extraction des données de la requête
+    const { name, email, message } = await request.json();
 
-  if (!response.success) {
-    return NextResponse.json({ error: response.error }, { status: 500 });
+    // Préparation et envoi de l'email
+    const data = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: "riantsoa96@gmail.com",
+      subject: `[DEVFOLIO] Nouveau message de ${name}`,
+      react: EmailTemplate({ name, email, message }) as React.ReactElement,
+    });
+
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+
+    return NextResponse.json({ success: true, data }, { status: 200 });
+  } catch (error) {
+    console.error("Erreur Resend:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Erreur inconnue",
+      },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(response.data, { status: 200 });
 }

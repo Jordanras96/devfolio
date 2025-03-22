@@ -5,7 +5,6 @@ import { Github, Twitter, Linkedin, Mail, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { sendEmail } from "@/utils/emailUtils";
 
 export function Contact() {
   const t = useTranslations("Contact");
@@ -21,11 +20,18 @@ export function Contact() {
     setIsLoading(true);
 
     try {
-      const response = await sendEmail(formState);
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
 
-      if (!response.success) {
-        console.error("Erreur serveur:", response.error);
-        throw new Error(response.error || "Erreur réseau");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Erreur réseau");
       }
 
       toast.success(t("successMessage"));
