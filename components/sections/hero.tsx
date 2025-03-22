@@ -88,7 +88,12 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80" />
       </div>
 
-      <div className="relative px-4 sm:px-6 pt-24 md:pt-32 pb-12 mx-auto max-w-7xl">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="max-w-7xl mx-auto px-6 py-20 md:py-32"
+      >
         <div className="flex flex-col items-center gap-y-8 lg:flex-row lg:gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -211,7 +216,7 @@ export function Hero() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

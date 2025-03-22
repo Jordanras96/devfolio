@@ -23,7 +23,7 @@ export function Navbar({ show }: NavbarProps) {
             "py-3 px-6"
           )}
         >
-          <div className=" mx-auto flex items-center justify-around">
+          <div className="mx-auto flex items-center justify-around">
             <Avatar
               className="h-16 w-16"
               aria-label="Photo de profil de Jordan Rasoloarison"
@@ -34,6 +34,7 @@ export function Navbar({ show }: NavbarProps) {
                 alt="Photo de profil"
                 fill
                 priority
+                fetchPriority="high"
               />
             </Avatar>
 

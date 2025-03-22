@@ -44,19 +44,18 @@ type PropType = {
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  // Optimiser les options du carrousel pour mobile
+  // Simplifier les options du carrousel
   const OPTIONS: EmblaOptionsType = {
     loop: true,
-    skipSnaps: false,
-    dragFree: false,
-    containScroll: "trimSnaps",
+    skipSnaps: true,
+    align: "start",
   };
 
   // Utiliser les options passées en props ou les options par défaut
   const options = props.options || OPTIONS;
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
-    Autoplay({ delay: 7000, stopOnInteraction: false }),
+    Autoplay({ delay: 7000, stopOnInteraction: false, playOnInit: false }), // Désactiver l'autoplay initial
   ]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =

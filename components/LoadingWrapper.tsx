@@ -11,7 +11,6 @@ import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Contact } from "@/components/sections/contact";
-import { LightLoader } from "@/components/3d/LightLoader";
 import { LocaleProvider } from "./LocaleProvider";
 import { AbstractIntlMessages } from "next-intl";
 
@@ -25,38 +24,58 @@ export function LoadingWrapper({
 }: {
   initialMessages: InitialMessages; // Remplacer 'any' par l'interface
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(false); // Désactiver le loader initial
   const { scrollY } = useScroll();
   const [showNavbar, setShowNavbar] = useState(false);
+  const [mountedComponents, setMountedComponents] = useState({
+    hero: true,
+    experience: false,
+    education: false,
+    skills: false,
+    projects: false,
+    testimonials: false,
+    contact: false,
+  });
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
       setShowNavbar(latest > window.innerHeight * 0.8);
+
+      // Charger progressivement les composants au défilement
+      if (latest > window.innerHeight * 0.3 && !mountedComponents.experience) {
+        setMountedComponents((prev) => ({ ...prev, experience: true }));
+      }
+      if (latest > window.innerHeight * 0.6 && !mountedComponents.education) {
+        setMountedComponents((prev) => ({ ...prev, education: true }));
+      }
+      if (latest > window.innerHeight * 0.9 && !mountedComponents.skills) {
+        setMountedComponents((prev) => ({ ...prev, skills: true }));
+      }
+      if (latest > window.innerHeight * 1.2 && !mountedComponents.projects) {
+        setMountedComponents((prev) => ({ ...prev, projects: true }));
+      }
+      if (
+        latest > window.innerHeight * 1.5 &&
+        !mountedComponents.testimonials
+      ) {
+        setMountedComponents((prev) => ({ ...prev, testimonials: true }));
+      }
+      if (latest > window.innerHeight * 1.8 && !mountedComponents.contact) {
+        setMountedComponents((prev) => ({ ...prev, contact: true }));
+      }
     });
-  }, [scrollY]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // Réduire de 5000ms à 3000ms
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <LightLoader />;
-  }
+  }, [scrollY, mountedComponents]);
 
   return (
     <LocaleProvider initialMessages={initialMessages}>
       <Navbar show={showNavbar} />
       <Hero />
-      <Experience />
-      <Education />
-      <Skills />
-      <Projects />
-      <Testimonials />
-      <Contact />
+      {mountedComponents.experience && <Experience />}
+      {mountedComponents.education && <Education />}
+      {mountedComponents.skills && <Skills />}
+      {mountedComponents.projects && <Projects />}
+      {mountedComponents.testimonials && <Testimonials />}
+      {mountedComponents.contact && <Contact />}
     </LocaleProvider>
   );
 }
