@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Layout, Server, Smartphone, Cloud } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Layout, Server, Smartphone, Cloud, Database } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -73,13 +73,136 @@ const skillCategories = [
       },
     ],
   },
+  {
+    title: "Database",
+    icon: Database,
+    technologies: [
+      {
+        name: "PostgreSQL",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+      },
+      {
+        name: "MongoDB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+    ],
+  },
 ];
+
+// Fonction pour créer les positions des icônes en cercle
+const generateOrbitPositions = (
+  count: number,
+  radius: number,
+  startAngle: number = 0
+) => {
+  return Array.from({ length: count }).map((_, i) => {
+    const angle = startAngle + (i * 2 * Math.PI) / count;
+    return {
+      x: radius * Math.cos(angle),
+      y: radius * Math.sin(angle),
+      angle,
+    };
+  });
+};
+
+// Définir l'interface pour les icônes en orbite
+interface OrbitIcon {
+  name: string;
+  icon: string;
+  category: string;
+}
 
 export function Hero() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [orbitIcons, setOrbitIcons] = useState<OrbitIcon[]>([]);
+  const [orbitRadius, setOrbitRadius] = useState(130);
+  const [rotationAngle, setRotationAngle] = useState(0);
   const t = useTranslations("Me");
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  // Effet combiné pour l'animation de rotation et l'ajustement du rayon
+  useEffect(() => {
+    // Ajustement du rayon de l'orbite en fonction de la taille de l'écran
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setOrbitRadius(100);
+      } else if (width < 768) {
+        setOrbitRadius(120);
+      } else {
+        setOrbitRadius(130);
+      }
+    };
+
+    handleResize(); // Initialiser
+    window.addEventListener("resize", handleResize);
+
+    // Sélection optimisée des technologies pour l'orbite
+    const selectedTechs = new Set<string>(); // Pour éviter les doublons
+    const techIcons: OrbitIcon[] = [];
+
+    // Fonction pour ajouter une technologie unique à notre sélection
+    const addTech = (
+      tech: { name: string; icon: string },
+      category: string
+    ) => {
+      if (!selectedTechs.has(tech.name)) {
+        selectedTechs.add(tech.name);
+        techIcons.push({
+          name: tech.name,
+          icon: tech.icon,
+          category,
+        });
+      }
+    };
+
+    // Sélectionner des technologies représentatives de chaque catégorie
+    skillCategories.forEach((category) => {
+      // Prendre une technologie aléatoire de chaque catégorie pour plus de variété
+      const randomIndex = Math.floor(
+        Math.random() * category.technologies.length
+      );
+      addTech(category.technologies[randomIndex], category.title);
+
+      // Optionnellement ajouter une seconde technologie si la catégorie en a plusieurs
+      if (category.technologies.length > 1 && techIcons.length < 8) {
+        const secondIndex = (randomIndex + 1) % category.technologies.length;
+        addTech(category.technologies[secondIndex], category.title);
+      }
+    });
+
+    setOrbitIcons(techIcons);
+
+    // Animation de rotation avec requestAnimationFrame pour de meilleures performances
+    let animationId: number;
+    let lastTime = 0;
+
+    const animate = (time: number) => {
+      if (lastTime === 0) lastTime = time;
+      const delta = time - lastTime;
+      lastTime = time;
+
+      setRotationAngle((prev) => (prev + delta * 0.00005) % (2 * Math.PI));
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    // Nettoyage propre
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", handleResize);
+      lastTime = 0;
+    };
+  }, []);
+
+  // Calculer les positions des icônes en orbite
+  const iconPositions = generateOrbitPositions(
+    orbitIcons.length,
+    orbitRadius,
+    rotationAngle
+  );
 
   return (
     <section className="relative min-h-[calc(100vh-4rem)] md:min-h-screen overflow-hidden bg-background">
@@ -160,6 +283,33 @@ export function Hero() {
                   priority
                 />
               </div>
+
+              {/* Icônes en orbite */}
+              {orbitIcons.map((tech, index) => {
+                const position = iconPositions[index];
+                return (
+                  <motion.div
+                    key={tech.name}
+                    className="absolute w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-blue-500/20 flex items-center justify-center shadow-md"
+                    style={{
+                      left: `calc(50% + ${position.x}px - 20px)`,
+                      top: `calc(50% + ${position.y}px - 20px)`,
+                    }}
+                    whileHover={{ scale: 1.2 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Image
+                      src={tech.icon}
+                      alt={tech.name}
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
+                    />
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
@@ -173,48 +323,53 @@ export function Hero() {
           }}
           className="grid grid-cols-2 gap-4 md:gap-6 mt-8 md:mt-12 md:grid-cols-4"
         >
-          {skillCategories.map((category) => (
-            <motion.div
-              key={category.title}
-              className="relative p-6 overflow-hidden rounded-lg bg-accent/50 backdrop-blur-sm group"
-              onHoverStart={() => setHoveredCategory(category.title)}
-              onHoverEnd={() => setHoveredCategory(null)}
-              whileHover={{ scale: 1.05 }}
-            >
+          {skillCategories
+            .filter(
+              (category) =>
+                category.title !== "Database" && category.title !== "Backend"
+            )
+            .map((category) => (
               <motion.div
-                initial={{ opacity: 1 }}
-                animate={{
-                  opacity: hoveredCategory === category.title ? 0 : 1,
-                }}
-                transition={{ duration: 0.2 }}
+                key={category.title}
+                className="relative p-6 overflow-hidden rounded-lg bg-accent/50 backdrop-blur-sm group"
+                onHoverStart={() => setHoveredCategory(category.title)}
+                onHoverEnd={() => setHoveredCategory(null)}
+                whileHover={{ scale: 1.05 }}
               >
-                <category.icon className="w-8 h-8 mb-4" />
-                <h3 className="font-semibold">{category.title}</h3>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 1 }}
+                  animate={{
+                    opacity: hoveredCategory === category.title ? 0 : 1,
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <category.icon className="w-8 h-8 mb-4" />
+                  <h3 className="font-semibold">{category.title}</h3>
+                </motion.div>
 
-              <motion.div
-                className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 p-6"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: hoveredCategory === category.title ? 1 : 0,
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                {category.technologies.map((tech) => (
-                  <Image
-                    key={tech.name}
-                    src={tech.icon}
-                    alt={tech.name}
-                    width={8}
-                    height={8}
-                    className="w-8 h-8"
-                    loading="lazy"
-                    sizes="(max-width: 768px) 32px, 32px"
-                  />
-                ))}
+                <motion.div
+                  className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 p-6"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoveredCategory === category.title ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {category.technologies.map((tech) => (
+                    <Image
+                      key={tech.name}
+                      src={tech.icon}
+                      alt={tech.name}
+                      width={8}
+                      height={8}
+                      className="w-8 h-8"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 32px, 32px"
+                    />
+                  ))}
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            ))}
         </motion.div>
       </motion.div>
     </section>

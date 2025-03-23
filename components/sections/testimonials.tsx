@@ -4,10 +4,13 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 import { Quote } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 export function Testimonials() {
   const controls = useAnimation();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+  const [autoplay, setAutoplay] = useState(true);
 
   const t = useTranslations("Testimonials");
 
@@ -24,7 +27,7 @@ export function Testimonials() {
         name: t("person.tojo.name"),
         role: t("person.tojo.role"),
         image:
-          "images//testimonials/466827119_1770310247133442_8891819088441267840_n.webp",
+          "/images/testimonials/466827119_1770310247133442_8891819088441267840_n.webp",
         text: t("person.tojo.text"),
       },
       {
@@ -44,148 +47,172 @@ export function Testimonials() {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonialsData.length);
-    }, 5000);
+    setIsClient(true);
 
-    return () => clearInterval(interval);
-  }, [testimonialsData]);
+    const handleAnimation = () => {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.3 },
+      });
+    };
 
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      window.requestIdleCallback(handleAnimation);
+    } else {
+      setTimeout(handleAnimation, 200);
+    }
+  }, [controls]);
+
+  // Effet pour l'animation infinie
   useEffect(() => {
-    controls.start({
-      opacity: [0, 1],
-      y: [50, 0],
-      transition: { duration: 0.5 },
-    });
-  }, [currentIndex, controls]);
+    let interval: NodeJS.Timeout;
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonialsData.length);
-  };
+    // Démarrer l'intervalle immédiatement
+    if (autoplay) {
+      interval = setInterval(() => {
+        setCurrentIndex(
+          (prevIndex) => (prevIndex + 1) % testimonialsData.length
+        );
+      }, 3000);
+    }
 
-  const handlePrevious = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonialsData.length - 1 : prev - 1
+    // Nettoyer l'intervalle lors du démontage
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [autoplay, testimonialsData.length]); // Assurez-vous que ces dépendances sont correctes
+
+  const handlePrev = () => {
+    setAutoplay(false);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonialsData.length - 1 : prevIndex - 1
     );
   };
 
-  return (
-    <section className="relative min-h-100vh box-border overflow-hidden bg-background py-20">
-      {/* Background grid and gradient overlay */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-white bg-[size:50px_50px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
-      </div>
+  const handleNext = () => {
+    setAutoplay(false);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
+  };
 
-      {/* Main content container */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="relative px-6 mx-auto max-w-7xl"
-      >
-        {/* Section title */}
-        <h2 className="mb-16 text-4xl font-bold text-center text-transparent bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text">
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const animationProps = isMobile
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.3 },
+      }
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: controls,
+        transition: { duration: 0.5 },
+      };
+
+  if (!isClient) {
+    return null;
+  }
+
+  return (
+    <section className="py-20 relative overflow-hidden">
+      <motion.div className="max-w-7xl mx-auto px-6" {...animationProps}>
+        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-violet-500 to-purple-500 bg-clip-text text-transparent">
           {t("title")}
         </h2>
 
-        {/* Testimonials slider */}
-        <div className="relative">
-          {/* Testimonial content */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Boutons de navigation */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 -ml-4 z-20 md:-ml-8">
+            <button
+              onClick={handlePrev}
+              className="bg-card/80 backdrop-blur-sm border border-accent rounded-full p-2 hover:bg-card/100 transition-all"
+              aria-label="Témoignage précédent"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-chevron-left"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 -mr-4 z-20 md:-mr-8">
+            <button
+              onClick={handleNext}
+              className="bg-card/80 backdrop-blur-sm border border-accent rounded-full p-2 hover:bg-card/100 transition-all"
+              aria-label="Témoignage suivant"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-chevron-right"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
           <motion.div
             key={currentIndex}
-            animate={controls}
-            className="flex flex-col items-center"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+              opacity: { duration: 0.7 },
+            }}
+            className="bg-card/50 backdrop-blur-sm border border-accent rounded-lg p-8 relative min-h-[300px] flex flex-col justify-between"
           >
-            {/* Container for image and buttons (mobile layout) */}
-            <div className="relative w-full flex justify-center items-center mb-6">
-              {/* Previous button */}
-              <motion.button
-                onClick={handlePrevious}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="absolute left-0 p-2 rounded-full bg-violet-500/20 hover:bg-violet-500/30 transition-colors z-10"
-                aria-label={t("previous")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-violet-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </motion.button>
+            <Quote className="absolute text-primary/20 w-20 h-20 -top-4 -left-4" />
 
-              {/* Testimonial image */}
-              <div className="w-24 h-24 overflow-hidden rounded-full ring-4 ring-violet-500/20">
-                <motion.img
+            <p className="text-lg mb-6 relative z-10">
+              {testimonialsData[currentIndex].text}
+            </p>
+
+            <motion.div
+              className="flex items-center gap-4 mt-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.4, ease: "easeInOut" }}
+            >
+              <motion.div
+                className="w-16 h-16 rounded-full overflow-hidden relative"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Image
                   src={testimonialsData[currentIndex].image}
                   alt={testimonialsData[currentIndex].name}
                   className="object-cover w-full h-full"
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5 }}
+                  loading="lazy"
+                  width={64}
+                  height={64}
                 />
-              </div>
+              </motion.div>
 
-              {/* Next button */}
-              <motion.button
-                onClick={handleNext}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="absolute right-0 p-2 rounded-full bg-violet-500/20 hover:bg-violet-500/30 transition-colors z-10"
-                aria-label={t("next")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-violet-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </motion.button>
-            </div>
-
-            {/* Quote icon */}
-            <Quote className="w-12 h-12 mb-6 text-violet-500/50" />
-
-            {/* Testimonial text */}
-            <motion.blockquote
-              className="max-w-2xl mb-6 text-xl text-center min-h-[200px] overflow-y-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              {testimonialsData[currentIndex].text}
-            </motion.blockquote>
-
-            {/* Testimonial name and role */}
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <h3 className="text-lg font-bold">
-                {testimonialsData[currentIndex].name}
-              </h3>
-              <p className="text-muted-foreground">
-                {testimonialsData[currentIndex].role}
-              </p>
+              <motion.div>
+                <h3 className="font-semibold text-lg">
+                  {testimonialsData[currentIndex].name}
+                </h3>
+                <p className="text-muted-foreground">
+                  {testimonialsData[currentIndex].role}
+                </p>
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -194,12 +221,16 @@ export function Testimonials() {
             {testimonialsData.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => {
+                  setAutoplay(false);
+                  setCurrentIndex(index);
+                }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex
                     ? "w-8 bg-violet-500"
                     : "bg-violet-500/20"
                 }`}
+                aria-label={`Témoignage ${index + 1}`}
               />
             ))}
           </div>

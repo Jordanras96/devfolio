@@ -1,4 +1,3 @@
-// components/3d/Loader.tsx
 "use client";
 
 import { useEffect, useRef } from "react";

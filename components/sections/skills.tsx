@@ -24,7 +24,7 @@ const logos = {
     "https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg",
   nodejs:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  express: "https://img.icons8.com/color/480/express-js.png",
+  express: "/images/skills/express-svgrepo-com.svg",
   python:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   prisma:
@@ -38,8 +38,8 @@ const logos = {
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
   docker:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  aws: "https://img.icons8.com/color/480/amazon-web-services.png",
-  cicd: "https://img.icons8.com/color/480/git.png",
+  aws: "/images/aws-svgrepo-com.svg",
+  cicd: "/images/git-svgrepo-com.svg",
   linux:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
   nginx:

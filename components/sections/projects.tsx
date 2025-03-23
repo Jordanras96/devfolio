@@ -75,7 +75,11 @@ export function Projects() {
     [t]
   );
 
-  const OPTIONS: EmblaOptionsType = { loop: true };
+  const OPTIONS: EmblaOptionsType = {
+    loop: true,
+    skipSnaps: true,
+    align: "start",
+  };
 
   return (
     <section className="py-20 relative overflow-hidden bg-accent/20">

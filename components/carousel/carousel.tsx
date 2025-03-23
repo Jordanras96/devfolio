@@ -6,6 +6,7 @@ import {
 import { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Lock } from "lucide-react";
 
 import {
   Card,
@@ -17,7 +18,6 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { ExternalLink, Lock } from "lucide-react";
 import {
   Dialog,
   DialogTrigger,
@@ -44,26 +44,55 @@ type PropType = {
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  // Simplifier les options du carrousel
+  // Optimiser les options du carrousel pour mobile
   const OPTIONS: EmblaOptionsType = {
     loop: true,
-    skipSnaps: true,
-    align: "start",
+    skipSnaps: false,
+    dragFree: false,
+    containScroll: "trimSnaps",
   };
 
   // Utiliser les options passées en props ou les options par défaut
   const options = props.options || OPTIONS;
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
-    Autoplay({ delay: 7000, stopOnInteraction: false, playOnInit: false }), // Désactiver l'autoplay initial
+    Autoplay({ delay: 7000, stopOnInteraction: false }),
   ]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
+  const scrollPrev = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   return (
     <section className="embla">
-      <div className="embla__viewport-container">
+      <div className="embla__viewport-container relative">
+        <Button
+          onClick={scrollPrev}
+          size="icon"
+          variant="ghost"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-background/80 backdrop-blur-sm"
+          aria-label="Projet précédent"
+        >
+          <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
+        </Button>
+
+        <Button
+          onClick={scrollNext}
+          size="icon"
+          variant="ghost"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-background/80 backdrop-blur-sm"
+          aria-label="Projet suivant"
+        >
+          <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
+        </Button>
+
         <div
           className="embla__viewport"
           ref={emblaRef}
@@ -108,6 +137,23 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                           <DialogHeader>
                             <DialogTitle>{items.title}</DialogTitle>
                           </DialogHeader>
+                          <div className="grid grid-cols-2 gap-4 py-4">
+                            {[1, 2, 3, 4].map((imgIndex) => (
+                              <div
+                                key={imgIndex}
+                                className="relative h-48 mb-4 overflow-hidden rounded-md"
+                              >
+                                <Image
+                                  src={`/images/gallery/${items.tag.toLocaleLowerCase()}-${imgIndex}.webp`}
+                                  alt={`Preview ${imgIndex}`}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 50vw"
+                                  className="object-cover"
+                                  loading="lazy"
+                                />
+                              </div>
+                            ))}
+                          </div>
                           <div className="space-y-4">
                             <p>{items.description}</p>
                             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

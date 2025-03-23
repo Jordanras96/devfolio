@@ -2,17 +2,43 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400");
 
 .container {
+  position: relative;
+  width: 100%;
   height: 100vh;
-  background: radial-gradient(#222922, #000500);
-  font-family: "Source Code Pro", monospace;
-  font-weight: 400;
+  background: radial-gradient(circle, #0f0f1a, #000);
   overflow: hidden;
-  padding: 30px 0 0 30px;
-  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+}
+
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 1px,
+    rgba(0, 255, 0, 0.1) 1px,
+    rgba(0, 255, 0, 0.1) 2px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.loadingText {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #0f0;
+  font-family: "Courier New", monospace;
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px #0f0;
+  z-index: 2;
 }
 
 .word {
@@ -28,6 +54,7 @@
   top: 0;
   text-shadow: 0 0 10px rgba(112, 112, 112, 0.5),
     0 0 5px rgba(233, 233, 233, 0.5);
+  text-align: center;
 }
 
 .word span {

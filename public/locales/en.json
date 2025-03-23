@@ -325,5 +325,9 @@
     "form": "Hey, you forgot to give me your name",
     "email": "Please, give me your mail to reply",
     "message": "You forgot to tell me something"
+  },
+
+  "Navbar": {
+    "title": "Web Developer"
   }
 }

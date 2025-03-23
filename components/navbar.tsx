@@ -1,15 +1,17 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface NavbarProps {
   show: boolean;
 }
 
 export function Navbar({ show }: NavbarProps) {
+  const t = useTranslations("Navbar");
+
   return (
     <AnimatePresence>
       {show && (
@@ -23,28 +25,24 @@ export function Navbar({ show }: NavbarProps) {
             "py-3 px-6"
           )}
         >
-          <div className="mx-auto flex items-center justify-around">
-            <Avatar
-              className="h-16 w-16"
-              aria-label="Photo de profil de Jordan Rasoloarison"
-            >
-              <Image
-                src="/images/me/self.webp"
-                sizes="(max-width: 768px) 64px, 64px"
-                alt="Photo de profil"
-                fill
-                priority
-                fetchPriority="high"
-              />
-            </Avatar>
+          <div className="mx-auto container flex items-center justify-between">
+            <div className="w-24">
+              <Avatar
+                className="h-16 w-16"
+                aria-label="Photo de profil de Jordan Rasoloarison"
+              >
+                <AvatarImage src="/images/me/self.webp" fetchPriority="high" />
+                <AvatarFallback>NRJ</AvatarFallback>
+              </Avatar>
+            </div>
 
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent">
-              Développeur Web
-            </h2>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent">
+              {t("title")}
+            </h1>
 
-            <span className="text-lg font-semibold text-center">
-              Jordan Ny Riantsoa Rasoloarison
-            </span>
+            <div className="w-24 text-right">
+              <span className="text-lg font-semibold">Jordan Rasoloarison</span>
+            </div>
           </div>
         </motion.nav>
       )}

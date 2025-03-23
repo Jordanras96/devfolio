@@ -310,11 +310,11 @@
     "textHead": "Restons en contact 🤓",
     "textContent": "N'hésitez pas à me contacter pour discuter de vos projets ou opportunités de collaboration.",
     "form": {
-      "name": "nom",
-      "email": "email",
-      "message": "message"
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message"
     },
-    "btn": "envoyer",
+    "btn": "Envoyer",
     "sending": "Envoi...",
     "successMessage": "message envoyé avec succès",
     "errorMessage": "oh oh! 😱 quelque chose s'est mal passé"
@@ -325,5 +325,9 @@
     "form": "Tu m'as pas dit comment tu t'appelles!",
     "email": "Peux-tu me donner ton mail pour qu'on puisse se parler",
     "message": "Tu voulais me dire quelques?\n\n"
+  },
+
+  "Navbar": {
+    "title": "Développeur Web"
   }
 }
