@@ -12,12 +12,11 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  optimizeFonts: true,
   compress: true,
-  swcMinify: true,
   staticPageGenerationTimeout: 120,
   experimental: {
-    optimizeCss: true,
+    // Désactiver l'optimisation CSS
+    // optimizeCss: true,
     scrollRestoration: true,
   },
 };
