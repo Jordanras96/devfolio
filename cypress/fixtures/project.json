@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Vakna Konekta",
+    "tag": "Fullstack Project",
+    "description": "Plateforme de mise en relation...",
+    "technologies": {
+      "FrontEnd": "React, Next.js, TypeScript",
+      "BackEnd": "Node.js, Express",
+      "Server": "AWS EC2",
+      "Database": "MongoDB"
+    }
+  },
+  {
+    "title": "Restaurant Management",
+    "tag": "Mobile App",
+    "description": "Application de gestion de restaurant...",
+    "technologies": {
+      "FrontEnd": "React Native",
+      "BackEnd": "Node.js",
+      "Server": "AWS Lambda",
+      "Database": "PostgreSQL"
+    }
+  }
+]

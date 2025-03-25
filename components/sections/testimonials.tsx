@@ -113,7 +113,7 @@ export function Testimonials() {
   }
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="testimonials" className="py-20 relative overflow-hidden">
       <motion.div className="max-w-7xl mx-auto px-6" {...animationProps}>
         <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-violet-500 to-purple-500 bg-clip-text text-transparent">
           {t("title")}
@@ -178,10 +178,14 @@ export function Testimonials() {
               opacity: { duration: 0.7 },
             }}
             className="bg-card/50 backdrop-blur-sm border border-accent rounded-lg p-8 relative min-h-[300px] flex flex-col justify-between"
+            data-testid="testimonial-carousel"
           >
             <Quote className="absolute text-primary/20 w-20 h-20 -top-4 -left-4" />
 
-            <p className="text-lg mb-6 relative z-10">
+            <p
+              className="text-lg mb-6 relative z-10"
+              data-testid="testimonial-text"
+            >
               {testimonialsData[currentIndex].text}
             </p>
 
@@ -194,6 +198,7 @@ export function Testimonials() {
               <motion.div
                 className="w-16 h-16 rounded-full overflow-hidden relative"
                 whileHover={{ scale: 1.05 }}
+                data-testid="testimonial-avatar"
               >
                 <Image
                   src={testimonialsData[currentIndex].image}
@@ -206,7 +211,10 @@ export function Testimonials() {
               </motion.div>
 
               <motion.div>
-                <h3 className="font-semibold text-lg">
+                <h3
+                  className="font-semibold text-lg"
+                  data-testid="testimonial-name"
+                >
                   {testimonialsData[currentIndex].name}
                 </h3>
                 <p className="text-muted-foreground">
@@ -231,6 +239,7 @@ export function Testimonials() {
                     : "bg-violet-500/20"
                 }`}
                 aria-label={`Témoignage ${index + 1}`}
+                data-testid="pagination-dot"
               />
             ))}
           </div>

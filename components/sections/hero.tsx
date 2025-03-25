@@ -25,6 +25,42 @@ const skillCategories = [
         name: "TypeScript",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
       },
+      {
+        name: "Axios",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-original.svg",
+      },
+      {
+        name: "React Query",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "React Router",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "Redux",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+      },
+      {
+        name: "webpack",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+      },
+      {
+        name: "Babel",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg",
+      },
+      {
+        name: "PWA",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pwa/pwa-original.svg",
+      },
+      {
+        name: "jasmine",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jasmine/jasmine-original.svg",
+      },
+      {
+        name: "Jest",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-original.svg",
+      },
     ],
   },
   {
@@ -205,7 +241,10 @@ export function Hero() {
   );
 
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] md:min-h-screen overflow-hidden bg-background">
+    <section
+      id="hero"
+      className="relative min-h-[calc(100vh-4rem)] md:min-h-screen overflow-hidden bg-background"
+    >
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-grid-white bg-[size:50px_50px]" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80" />
@@ -255,9 +294,16 @@ export function Hero() {
             <div className="flex flex-wrap items-center mt-4">
               <p className="mr-2">{t("CTA")}</p>
               <Link
-                href="#"
+                href="#contact"
                 className="mt-2 md:mt-0 md:ml-2 animate-pulse"
                 passHref
+                scroll={false}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
               >
                 <Button variant="default" className="h-8 md:h-9 px-3 md:px-4">
                   {t("button")}

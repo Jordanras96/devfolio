@@ -38,8 +38,8 @@ const logos = {
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
   docker:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  aws: "/images/aws-svgrepo-com.svg",
-  cicd: "/images/git-svgrepo-com.svg",
+  aws: "/images/skills/aws-svgrepo-com.svg",
+  cicd: "/images/skills/git-svgrepo-com.svg",
   linux:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
   nginx:
@@ -100,7 +100,7 @@ export function Skills() {
   const t = useTranslations("Skills");
 
   return (
-    <section className="relative py-20">
+    <section id="skills" className="relative py-20">
       <div className="px-6 mx-auto max-w-7xl">
         <h2 className="mb-16 text-4xl font-bold text-center text-transparent bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text">
           {t("title")}

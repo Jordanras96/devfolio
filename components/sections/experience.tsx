@@ -5,6 +5,7 @@ import { Calendar, Building2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -72,7 +73,7 @@ export function Experience() {
     },
   ];
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="experiences" className="py-20 relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -134,10 +135,16 @@ export function Experience() {
                 </motion.div>
               </DialogTrigger>
 
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent
+                data-testid="experience-dialog"
+                className="sm:max-w-[425px]"
+              >
                 <DialogHeader>
                   <DialogTitle>{exp.company}</DialogTitle>
                 </DialogHeader>
+                <DialogDescription>
+                  {exp.role} - {exp.years}
+                </DialogDescription>
                 <div className="grid gap-4 py-4">
                   <div className="space-y-2">
                     <h4 className="font-semibold text-lg">{exp.role}</h4>

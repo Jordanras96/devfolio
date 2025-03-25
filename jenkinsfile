@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Lint') {
+            steps {
+                sh 'npm run lint'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm run test' // Jest
+                sh 'npx cypress run' // Cypress
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'vercel --prod' // Déploiement sur Vercel
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline terminé !'
+        }
+        failure {
+            echo 'Échec du pipeline.'
+        }
+    }
+}

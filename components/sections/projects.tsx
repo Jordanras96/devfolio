@@ -47,7 +47,6 @@ export function Projects() {
         image: "/images/gallery/microsaas-1.png",
         confidential: true,
       },
-
       {
         title: t("projects.dental.title"),
         tag: t("projects.dental.tag"),
@@ -59,7 +58,6 @@ export function Projects() {
         image: "/images/gallery/dentalclinic-1.webp",
         confidential: false,
       },
-
       {
         title: t("projects.plate.title"),
         tag: t("projects.plate.tag"),
@@ -82,12 +80,17 @@ export function Projects() {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden bg-accent/20">
+    <section
+      id="projects"
+      className="py-20 relative overflow-hidden bg-accent/20"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
           {t("title")}
         </h2>
-        <EmblaCarousel slides={projectsData} options={OPTIONS} />
+        <div data-testid="embla-carousel">
+          <EmblaCarousel slides={projectsData} options={OPTIONS} />
+        </div>
       </div>
     </section>
   );

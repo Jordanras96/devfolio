@@ -1,0 +1,13 @@
+{
+  "frontend": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Redux",
+    "Zustand",
+    "Tailwind CSS"
+  ],
+  "backend": ["Node.js", "Express", "Python", "GraphQL"],
+  "database": ["PostgreSQL", "MongoDB", "SQL", "Redis", "Prisma"],
+  "devops": ["Docker", "AWS", "CI/CD", "Linux", "Nginx"]
+}

@@ -81,7 +81,7 @@ export function Contact() {
   };
 
   return (
-    <section className="relative py-20 bg-accent/20">
+    <section id="contact" className="relative py-20 bg-accent/20">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

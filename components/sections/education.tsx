@@ -50,7 +50,7 @@ export function Education() {
   ];
 
   return (
-    <section className="py-20 relative bg-accent/20">
+    <section id="education" className="py-20 relative bg-accent/20">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -75,6 +75,7 @@ export function Education() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300" />
               <motion.div
                 className="relative bg-background/50 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 overflow-hidden cursor-pointer h-full flex flex-col"
+                data-testid="education-card"
                 whileHover={{
                   scale: 1.02,
                   boxShadow: [
