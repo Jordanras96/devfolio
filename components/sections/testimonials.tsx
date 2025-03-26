@@ -1,99 +1,28 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useCarousel } from "@/hooks/useCarousel";
+import { useTranslatedData } from "@/hooks/useTranslatedData";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { testimonialsData } from "@/data/testimonialsData";
 
 export function Testimonials() {
-  const controls = useAnimation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isClient, setIsClient] = useState(false);
-  const [autoplay, setAutoplay] = useState(true);
-
   const t = useTranslations("Testimonials");
-
-  const testimonialsData = useMemo(
-    () => [
-      {
-        name: t("person.harison.name"),
-        role: t("person.harison.role"),
-        image:
-          "/images/testimonials/364115805_7638561546183583_139268431628256637_n.webp",
-        text: t("person.harison.text"),
-      },
-      {
-        name: t("person.tojo.name"),
-        role: t("person.tojo.role"),
-        image:
-          "/images/testimonials/466827119_1770310247133442_8891819088441267840_n.webp",
-        text: t("person.tojo.text"),
-      },
-      {
-        name: t("person.juanito.name"),
-        role: t("person.juanito.role"),
-        image: "/images/testimonials/1516983291878.webp",
-        text: t("person.juanito.text"),
-      },
-      {
-        name: t("person.mamy.name"),
-        role: t("person.mamy.role"),
-        image: "/images/testimonials/rado.jpg",
-        text: t("person.mamy.text"),
-      },
-    ],
-    [t]
+  const testimonialsDataUse = useTranslatedData(
+    "Testimonials",
+    testimonialsData
   );
 
-  useEffect(() => {
-    setIsClient(true);
+  const { currentIndex, handlePrev, handleNext, setAutoplay, goToSlide } =
+    useCarousel({
+      itemsLength: testimonialsDataUse.length,
+      autoplayInterval: 3000,
+    });
 
-    const handleAnimation = () => {
-      controls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.3 },
-      });
-    };
-
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      window.requestIdleCallback(handleAnimation);
-    } else {
-      setTimeout(handleAnimation, 200);
-    }
-  }, [controls]);
-
-  // Effet pour l'animation infinie
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    // Démarrer l'intervalle immédiatement
-    if (autoplay) {
-      interval = setInterval(() => {
-        setCurrentIndex(
-          (prevIndex) => (prevIndex + 1) % testimonialsData.length
-        );
-      }, 3000);
-    }
-
-    // Nettoyer l'intervalle lors du démontage
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [autoplay, testimonialsData.length]); // Assurez-vous que ces dépendances sont correctes
-
-  const handlePrev = () => {
-    setAutoplay(false);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonialsData.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setAutoplay(false);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
-  };
+  const { controls } = useScrollAnimation();
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const animationProps = isMobile
@@ -107,10 +36,6 @@ export function Testimonials() {
         animate: controls,
         transition: { duration: 0.5 },
       };
-
-  if (!isClient) {
-    return null;
-  }
 
   return (
     <section id="testimonials" className="py-20 relative overflow-hidden">
@@ -186,7 +111,7 @@ export function Testimonials() {
               className="text-lg mb-6 relative z-10"
               data-testid="testimonial-text"
             >
-              {testimonialsData[currentIndex].text}
+              {testimonialsDataUse[currentIndex].text}
             </p>
 
             <motion.div
@@ -201,8 +126,8 @@ export function Testimonials() {
                 data-testid="testimonial-avatar"
               >
                 <Image
-                  src={testimonialsData[currentIndex].image}
-                  alt={testimonialsData[currentIndex].name}
+                  src={testimonialsDataUse[currentIndex].image}
+                  alt={testimonialsDataUse[currentIndex].name}
                   className="object-cover w-full h-full"
                   loading="lazy"
                   width={64}
@@ -215,10 +140,10 @@ export function Testimonials() {
                   className="font-semibold text-lg"
                   data-testid="testimonial-name"
                 >
-                  {testimonialsData[currentIndex].name}
+                  {testimonialsDataUse[currentIndex].name}
                 </h3>
                 <p className="text-muted-foreground">
-                  {testimonialsData[currentIndex].role}
+                  {testimonialsDataUse[currentIndex].role}
                 </p>
               </motion.div>
             </motion.div>
@@ -226,12 +151,12 @@ export function Testimonials() {
 
           {/* Pagination dots */}
           <div className="flex justify-center gap-2 mt-8">
-            {testimonialsData.map((_, index) => (
+            {testimonialsDataUse.map((_, index) => (
               <button
                 key={index}
                 onClick={() => {
                   setAutoplay(false);
-                  setCurrentIndex(index);
+                  goToSlide(index);
                 }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex

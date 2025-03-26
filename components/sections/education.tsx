@@ -16,38 +16,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useTranslatedData } from "@/hooks/useTranslatedData";
+import { educationData } from "@/data/educationData";
 
 export function Education() {
   const [selectedEdu, setSelectedEdu] = useState<number | null>(null);
 
   const t = useTranslations("Education");
-
-  const educationData = [
-    {
-      school: t("certificates.mechatronics.school"),
-      degree: t("certificates.mechatronics.degree"),
-      description: t("certificates.mechatronics.description"),
-      years: "2021 - 2023",
-    },
-    {
-      school: t("certificates.automation.school"),
-      degree: t("certificates.automation.degree"),
-      description: t("certificates.automation.description"),
-      years: "2015 - 2020",
-    },
-    {
-      school: t("certificates.react.school"),
-      degree: t("certificates.react.degree"),
-      description: t("certificates.react.description"),
-      years: "2022 - 2023",
-    },
-    {
-      school: t("certificates.fullstack.school"),
-      degree: t("certificates.fullstack.degree"),
-      description: t("certificates.fullstack.description"),
-      years: "2022 - 2023",
-    },
-  ];
+  const education = useTranslatedData("Education", educationData);
 
   return (
     <section id="education" className="py-20 relative bg-accent/20">
@@ -62,7 +38,7 @@ export function Education() {
         </h2>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-          {educationData.map((edu, index) => (
+          {education.map((edu, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
@@ -109,48 +85,25 @@ export function Education() {
           ))}
         </div>
 
-        {/* <Drawer.Root open={selectedEdu !== null} onOpenChange={() => setSelectedEdu(null)}>
-          <Drawer.Content className="bg-background p-6">
-            {selectedEdu !== null && (
-              <div className="max-w-2xl mx-auto">
-                <Drawer.Header>
-                  <Drawer.Title className="text-2xl font-bold">
-                    {education[selectedEdu].degree}
-                  </Drawer.Title>
-                  <Drawer.Description className="text-muted-foreground">
-                    {education[selectedEdu].institution} - {education[selectedEdu].year}
-                  </Drawer.Description>
-                </Drawer.Header>
-                <div className="mt-4">
-                  <p className="text-muted-foreground">
-                    {education[selectedEdu].description}
-                  </p>
-                </div>
-              </div>
-            )}
-          </Drawer.Content>
-        </Drawer.Root> */}
         <Drawer
           open={selectedEdu !== null}
           onOpenChange={() => setSelectedEdu(null)}
         >
-          {/* <DrawerTrigger></DrawerTrigger> */}
           {selectedEdu !== null && (
             <DrawerContent className="bg-background p-6">
               <DrawerHeader>
                 <DrawerTitle className="text-2xl font-bold">
-                  {" "}
-                  {educationData[selectedEdu].degree}
+                  {education[selectedEdu].degree}
                 </DrawerTitle>
                 <DrawerDescription className="text-muted-foreground">
-                  {educationData[selectedEdu].school} -{" "}
-                  {educationData[selectedEdu].years}{" "}
+                  {education[selectedEdu].school} -{" "}
+                  {education[selectedEdu].years}
                 </DrawerDescription>
               </DrawerHeader>
               <div className="p-4 pb-0">
                 <div className="mt-4">
                   <p className="text-muted-foreground">
-                    {educationData[selectedEdu].description}
+                    {education[selectedEdu].description}
                   </p>
                 </div>
               </div>

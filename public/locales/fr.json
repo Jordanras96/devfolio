@@ -24,109 +24,290 @@
     "technologies": {
       "frontend": {
         "title": "Frontend",
-        "skills": {
-          "react": {
-            "name": "React",
-            "level": "95"
+        "sections": {
+          "buildTools": {
+            "title": "Outils de build",
+            "skills": {
+              "webpack": {
+                "name": "Webpack",
+                "level": "85"
+              },
+              "vite": {
+                "name": "Vite",
+                "level": "90"
+              },
+              "babel": {
+                "name": "Babel",
+                "level": "85"
+              }
+            }
           },
-          "nextjs": {
-            "name": "Next.js",
-            "level": "80"
+          "frameworks": {
+            "title": "Frameworks",
+            "skills": {
+              "react": {
+                "name": "React",
+                "level": "95"
+              },
+              "vue": {
+                "name": "Vue",
+                "level": "85"
+              }
+            }
           },
-          "typescript": {
-            "name": "TypeScript",
-            "level": "85"
+          "libraries": {
+            "title": "Bibliothèques",
+            "skills": {
+              "vuex": {
+                "name": "Vuex",
+                "level": "85"
+              },
+              "vueRouter": {
+                "name": "Vue Router",
+                "level": "85"
+              },
+              "redux": {
+                "name": "Redux",
+                "level": "95"
+              },
+              "reactRouter": {
+                "name": "React Router",
+                "level": "90"
+              },
+              "reactForm": {
+                "name": "React Form",
+                "level": "85"
+              },
+              "tanstack": {
+                "name": "TanStack Query",
+                "level": "85"
+              },
+              "axios": {
+                "name": "Axios",
+                "level": "90"
+              },
+              "zustand": {
+                "name": "Zustand",
+                "level": "90"
+              },
+              "auth0": {
+                "name": "Auth0",
+                "level": "85"
+              },
+              "reactContext": {
+                "name": "React Context",
+                "level": "90"
+              }
+            }
           },
-          "tailwindcss": {
-            "name": "Tailwind CSS",
-            "level": "90"
-          },
-          "redux": {
-            "name": "Redux",
-            "level": "95"
-          },
-          "zustand": {
-            "name": "Zustand",
-            "level": "90"
-          },
-          "auth": {
-            "name": "Next-Auth",
-            "level": "85"
-          },
-          "graphql": {
-            "name": "GraphQL",
-            "level": "80"
-          },
-          "jest": {
-            "name": "Jest",
-            "level": "85"
+          "style": {
+            "title": "Style",
+            "skills": {
+              "tailwindcss": {
+                "name": "Tailwind CSS",
+                "level": "90"
+              },
+              "materialUI": {
+                "name": "Material UI",
+                "level": "85"
+              },
+              "sass": {
+                "name": "SASS",
+                "level": "85"
+              }
+            }
           }
         }
       },
       "backend": {
         "title": "Backend",
-        "skills": {
-          "node": {
-            "name": "Node.js",
-            "level": "90"
+        "sections": {
+          "runtime": {
+            "title": "Runtime",
+            "skills": {
+              "nodejs": {
+                "name": "Node.js",
+                "level": "90"
+              },
+              "bun": {
+                "name": "Bun",
+                "level": "75"
+              }
+            }
           },
-          "express": {
-            "name": "Express",
-            "level": "85"
+          "frameworks": {
+            "title": "Frameworks",
+            "skills": {
+              "symfony": {
+                "name": "Symfony",
+                "level": "80"
+              },
+              "laravel": {
+                "name": "Laravel",
+                "level": "75"
+              },
+              "express": {
+                "name": "Express.js",
+                "level": "85"
+              },
+              "fastify": {
+                "name": "Fastify",
+                "level": "80"
+              },
+              "nestjs": {
+                "name": "Nest.js",
+                "level": "80"
+              }
+            }
           },
-          "python": {
-            "name": "Python",
-            "level": "50"
+          "websocket": {
+            "title": "WebSocket",
+            "skills": {
+              "socketio": {
+                "name": "Socket.io",
+                "level": "85"
+              }
+            }
           },
-          "prisma": {
-            "name": "Prisma",
-            "level": "85"
+          "orm": {
+            "title": "ORM/ODM",
+            "skills": {
+              "mongoose": {
+                "name": "Mongoose",
+                "level": "80"
+              },
+              "prisma": {
+                "name": "Prisma",
+                "level": "85"
+              }
+            }
+          },
+          "sql": {
+            "title": "SQL",
+            "skills": {
+              "postgresql": {
+                "name": "PostgreSQL",
+                "level": "85"
+              },
+              "mysql": {
+                "name": "MySQL",
+                "level": "85"
+              }
+            }
           }
         }
       },
       "database": {
         "title": "Base de données",
         "skills": {
-          "postgresql": {
-            "name": "PostgreSQL",
-            "level": "85"
-          },
           "mongodb": {
             "name": "MongoDB",
             "level": "80"
           },
-          "sql": {
-            "name": "SQL",
+          "mysql": {
+            "name": "MySQL",
             "level": "85"
           },
-          "redis": {
-            "name": "Redis",
-            "level": "70"
+          "postgresql": {
+            "name": "PostgreSQL",
+            "level": "85"
           }
         }
       },
       "devops": {
         "title": "DevOps",
-        "skills": {
-          "docker": {
-            "name": "Docker",
-            "level": "65"
+        "sections": {
+          "tools": {
+            "title": "Outils",
+            "skills": {
+              "nginx": {
+                "name": "Nginx",
+                "level": "75"
+              },
+              "redis": {
+                "name": "Redis",
+                "level": "70"
+              },
+              "pm2": {
+                "name": "PM2",
+                "level": "80"
+              }
+            }
           },
-          "aws": {
-            "name": "AWS",
-            "level": "50"
+          "ci": {
+            "title": "CI",
+            "skills": {
+              "jenkins": {
+                "name": "Jenkins",
+                "level": "70"
+              },
+              "circleci": {
+                "name": "CircleCI",
+                "level": "75"
+              }
+            }
           },
-          "cicd": {
-            "name": "CI/CD",
-            "level": "70"
+          "loadBalancer": {
+            "title": "Load Balancer",
+            "skills": {
+              "nginx": {
+                "name": "Nginx",
+                "level": "75"
+              }
+            }
           },
-          "linux": {
-            "name": "Linux",
-            "level": "80"
+          "webCaching": {
+            "title": "Web Caching",
+            "skills": {
+              "redis": {
+                "name": "Redis",
+                "level": "70"
+              }
+            }
           },
-          "nginx": {
-            "name": "Nginx",
-            "level": "75"
+          "processManager": {
+            "title": "Process Manager",
+            "skills": {
+              "pm2": {
+                "name": "PM2",
+                "level": "80"
+              }
+            }
+          },
+          "containerization": {
+            "title": "Containerization",
+            "skills": {
+              "docker": {
+                "name": "Docker",
+                "level": "65"
+              }
+            }
+          },
+          "orchestration": {
+            "title": "Orchestration",
+            "skills": {
+              "dockerSwarm": {
+                "name": "Docker Swarm",
+                "level": "60"
+              },
+              "kubernetes": {
+                "name": "Kubernetes",
+                "level": "55"
+              }
+            }
+          },
+          "cdn": {
+            "title": "CDN",
+            "skills": {
+              "cloudflare": {
+                "name": "Cloudflare",
+                "level": "75"
+              },
+              "fastly": {
+                "name": "Fastly",
+                "level": "70"
+              }
+            }
           }
         }
       }
@@ -194,10 +375,10 @@
         "tag": "microSaaS",
         "description": "Une solution SaaS permettant d'anonymiser les informations personnelles contenues dans les fichiers DOC, DOCX et XLSX. L'application propose une interface intuitive pour charger, traiter et télécharger les fichiers nettoyés.",
         "technologies": {
-          "FrontEnd": "React.js, TypeScript, Vite, TailwindCSS, ShadCN UI, React Query, Zustand",
-          "BackEnd": "Node.js, Express, Prisma, Zod, BullMQ ",
-          "Server": "AWS Lambda, S3, CloudFront",
-          "Database": "PostgreSQL, Redis"
+          "Frontend": "Next.js, React Query, TailwindCSS, Material UI, Axios",
+          "Backend": "Node.js, Express.js, Prisma",
+          "Database": "PostgreSQL",
+          "DevOps": "Docker, Kubernetes, Nginx, PM2, Cloudflare, Jenkins"
         }
       },
       "restaurant": {
@@ -205,10 +386,10 @@
         "tag": "restaurant",
         "description": "Un système complet de tableau de bord pour gérer les commandes, les tables, l'inventaire, le personnel et les factures. Supporte la synchronisation multi-emplacements pour les chaînes de restaurants avec des mises à jour en temps réel.",
         "technologies": {
-          "FrontEnd": "Next.js, React Query, Zustand, TailwindCSS, ShadCN UI, Chart.js",
-          "BackEnd": "FastAPI, Celery, Pydantic",
-          "Server": "Docker, Nginx, Gunicorn",
-          "Database": "PostgreSQL, Redis "
+          "Frontend": "Vue.js, Vuex, Vue Router, TailwindCSS, Chart.js",
+          "Backend": "Laravel, Socket.io",
+          "Database": "MySQL",
+          "DevOps": "Docker, Nginx, PM2, Redis, CircleCI, Fastly"
         }
       },
       "dental": {
@@ -216,10 +397,10 @@
         "tag": "dentalclinic",
         "description": "Une application permettant aux dentistes et aux infirmières de gérer les rendez-vous, les patients, les traitements, les stocks de consommables et la facturation. Gestion des rôles et permissions pour un accès restreint aux différentes fonctionnalités.",
         "technologies": {
-          "FrontEnd": "Next.js, React Query, Zustand, TailwindCSS, ShadCN UI, GoogleCalendar",
-          "BackEnd": "Express.js, Prisma, Zod, Lucia",
-          "Server": "Docker, PM2",
-          "Database": "PostgreSQL"
+          "Frontend": "React, Redux, React Router, Material UI, Axios",
+          "Backend": "Symfony, Socket.io",
+          "Database": "PostgreSQL",
+          "DevOps": "Docker Swarm, Nginx, PM2, Redis, Jenkins, Cloudflare"
         }
       },
       "vaknakonekta": {
@@ -227,25 +408,26 @@
         "tag": "vaknakonekta",
         "description": "Une application mobile et web ecommerce pour vendre des fruits et des légumes. Inclut un interface utilisateur conviviale, une gestion de paiement sécurisée, et une synchronisation en temps réel des stocks.",
         "technologies": {
-          "FrontEnd": "React Native, Nextjs, React, Zustand, TailwindCSS, ShadCN UI",
-          "BackEnd": "Node.js, Express, Prisma, Zod",
-          "Server": "AWS EC2, CloudFront, S3",
-          "Database": "PostgreSQL, Redis"
+          "Frontend": "React Native Expo, Next.js, Zustand, TailwindCSS, Axios",
+          "Backend": "Nest.js, Socket.io",
+          "Database": "MongoDB",
+          "DevOps": "Docker, Kubernetes, Nginx, PM2, CircleCI, Cloudflare"
         }
       },
       "plate": {
         "title": "Système de location de vaisselle",
         "tag": "dishware",
-        "description": "Une plateforme optimisée pour la gestion des commandes et des réservations de vaisselle pour les événements. , incluant le traitement des commandes, le suivi de la disponibilité et les notifications en temps réel pour les retours de location.",
+        "description": "Une plateforme optimisée pour la gestion des commandes et des réservations de vaisselle pour les événements. Incluant le traitement des commandes, le suivi de la disponibilité et les notifications en temps réel pour les retours de location.",
         "technologies": {
-          "FrontEnd": "React.js, React Native pour mobile, Zustand, TailwindCSS, ShadCN UI",
-          "BackEnd": "Node.js, NestJS, GraphQL, Apollo Server",
-          "Server": "AWS EC2, CloudFront, S3",
-          "Database": "MySQL, Redis"
+          "Frontend": "Nuxt.js, Vuex, Vue Router, TailwindCSS, Axios",
+          "Backend": "Fastify, Socket.io",
+          "Database": "PostgreSQL",
+          "DevOps": "Docker, Nginx, PM2, Redis, Jenkins, Fastly"
         }
       }
     }
   },
+
   "Experience": {
     "title": "Récits de guerre",
     "experiences": {

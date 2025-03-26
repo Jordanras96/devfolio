@@ -11,67 +11,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
+import { useTranslatedData } from "@/hooks/useTranslatedData";
+import { experiencesData } from "@/data/experienceData";
 
 export function Experience() {
   const t = useTranslations("Experience");
-  const experiences = [
-    {
-      company: t("experiences.oltek.company"),
-      role: t("experiences.oltek.role"),
+  const experiences = useTranslatedData("Experience", experiencesData);
 
-      shortDescription: t("experiences.oltek.shortDescription"),
-      longDescription: t("experiences.oltek.longDescription"),
-      frontend: t("experiences.oltek.technologies.FrontEnd"),
-      backend: t("experiences.oltek.technologies.BackEnd"),
-      server: t("experiences.oltek.technologies.Server"),
-      years: "Dec 2023 - Jan 2025",
-      side: "right",
-    },
-    {
-      company: t("experiences.hospital.company"),
-      role: t("experiences.hospital.role"),
-      shortDescription: t("experiences.hospital.shortDescription"),
-      longDescription: t("experiences.hospital.longDescription"),
-      frontend: t("experiences.hospital.technologies.FrontEnd"),
-      backend: t("experiences.hospital.technologies.BackEnd"),
-      server: t("experiences.hospital.technologies.Server"),
-      years: "Nov 2022 - Sep 2023",
-      side: "left",
-    },
-    {
-      company: t("experiences.local.company"),
-      role: t("experiences.local.role"),
-      shortDescription: t("experiences.local.shortDescription"),
-      longDescription: t("experiences.local.longDescription"),
-      frontend: t("experiences.local.technologies.FrontEnd"),
-      backend: t("experiences.local.technologies.BackEnd"),
-      server: t("experiences.local.technologies.Server"),
-      years: "Jul 2021 - Aug 2022",
-      side: "right",
-    },
-    {
-      company: t("experiences.ysquad.company"),
-      role: t("experiences.ysquad.role"),
-      shortDescription: t("experiences.ysquad.shortDescription"),
-      longDescription: t("experiences.ysquad.longDescription"),
-      frontend: t("experiences.ysquad.technologies.FrontEnd"),
-      backend: t("experiences.ysquad.technologies.BackEnd"),
-      server: t("experiences.ysquad.technologies.Server"),
-      years: "Jan 2020 - May 2022",
-      side: "left",
-    },
-    {
-      company: t("experiences.imperial.company"),
-      role: t("experiences.imperial.role"),
-      shortDescription: t("experiences.imperial.shortDescription"),
-      longDescription: t("experiences.imperial.longDescription"),
-      frontend: t("experiences.imperial.technologies.FrontEnd"),
-      backend: t("experiences.imperial.technologies.BackEnd"),
-      server: t("experiences.imperial.technologies.Server"),
-      years: "Apr 2019 - Oct 2019",
-      side: "right",
-    },
-  ];
   return (
     <section id="experiences" className="py-20 relative overflow-hidden">
       <motion.div
